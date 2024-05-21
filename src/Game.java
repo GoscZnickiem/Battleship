@@ -1,112 +1,51 @@
-import java.io.*;
-import java.net.*;
-import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URL;
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 public class Game {
-	public Game(boolean server) {
-		m_isServer = server;
-
-		if(m_isServer) {
-			runServer();
-		} else {
-			runClient();
-		}
+	public Game() {
+		m_isRunning = true;
 	}
 
-	private void runServer() {
-		System.out.println("Server IP: " + getPublicIP());
-		try (ServerSocket serverSocket = new ServerSocket(12345)) {
-            System.out.println("Serwer uruchomiony, oczekiwanie na klienta...");
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Połączono z klientem!");
+	public void run() {
+		long minTime = 2000000000 / getMonitorRefreshRate();
+		minTime = 2000000000;	//temp
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+		while (m_isRunning) {
+			long startTime = System.nanoTime();
 
-            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Wybierz liczbę od 1 do 10:");
-            int number = Integer.parseInt(userInput.readLine());
+			update();
+			render();
 
-            while (true) {
-                String guess = in.readLine();
-                int guessedNumber = Integer.parseInt(guess);
+			long endTime = System.nanoTime();
 
-                if (guessedNumber == number) {
-                    out.println("Gratulacje! Zgadłeś liczbę.");
-                    break;
-                } else if (guessedNumber < number) {
-                    out.println("Za mało.");
-                } else {
-                    out.println("Za dużo.");
+			long tooEarly = minTime - (endTime - startTime);
+			if(tooEarly > 0) {
+				try {
+                    Thread.sleep(tooEarly / 1000000, (int) (tooEarly % 1000000));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }
-
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
-
-	private static String getPublicIP() {
-		try {
-			URL url = new URL("https://api.ipify.org");
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String ip = in.readLine();
-			in.close();
-
-			return ip;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "1";
-	}
-
-
-	private void runClient() {
-        // Zapytanie użytkownika o podanie adresu IP
-		Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj adres IP: ");
-        String serverAddress = scanner.nextLine();
-		scanner.close();
-
-		try (Socket socket = new Socket(serverAddress, 12345)) {
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-			BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-
-			System.out.println("Zgadnij liczbę od 1 do 10:");
-
-			while (true) {
-				System.out.print("Twoje przypuszczenie: ");
-				String guess = userInput.readLine();
-				out.println(guess);
-
-				String response = in.readLine();
-				System.out.println(response);
-
-				if (response.equals("Gratulacje! Zgadłeś liczbę.")) {
-					break;
-				}
 			}
-
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
-	private boolean m_isServer;
+	private void update() {
+		System.out.println("updat");
+	}
+
+	private void render() {
+		System.out.println("rendr");
+	}
+
+	private int getMonitorRefreshRate() {
+        GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] devices = graphicsEnvironment.getScreenDevices();
+        GraphicsDevice device = devices[0];
+        DisplayMode displayMode = device.getDisplayMode();
+        return displayMode.getRefreshRate();
+	}
+
+	private boolean m_isRunning;
+	// Tu pewnie m_canvas lub m_window (jeszcze to ogarne narazie nie przejmujmy sie grafiką)
 }
