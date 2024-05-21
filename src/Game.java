@@ -2,16 +2,20 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
-public class Game {
-	public Game() {
+public class Game 
+{
+	public Game() 
+	{
 		m_isRunning = true;
 	}
 
-	public void run() {
+	public void run() 
+	{
 		long minTime = 2000000000 / getMonitorRefreshRate();
 		minTime = 2000000000;	//temp
 
-		while (m_isRunning) {
+		while (isRunning) 
+		{
 			long startTime = System.nanoTime();
 
 			update();
@@ -20,25 +24,32 @@ public class Game {
 			long endTime = System.nanoTime();
 
 			long tooEarly = minTime - (endTime - startTime);
-			if(tooEarly > 0) {
-				try {
+			if(tooEarly > 0) 
+			{
+				try 
+				{
                     Thread.sleep(tooEarly / 1000000, (int) (tooEarly % 1000000));
-                } catch (InterruptedException e) {
+                } 
+				catch (InterruptedException e) 
+				{
                     e.printStackTrace();
                 }
 			}
 		}
 	}
 
-	private void update() {
+	private void update() 
+	{
 		System.out.println("updat");
 	}
 
-	private void render() {
+	private void render() 
+	{
 		System.out.println("rendr");
 	}
 
-	private int getMonitorRefreshRate() {
+	private int getMonitorRefreshRate() 
+	{
         GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = graphicsEnvironment.getScreenDevices();
         GraphicsDevice device = devices[0];
@@ -46,6 +57,6 @@ public class Game {
         return displayMode.getRefreshRate();
 	}
 
-	private boolean m_isRunning;
+	private boolean isRunning;
 	// Tu pewnie m_canvas lub m_window (jeszcze to ogarne narazie nie przejmujmy sie grafiką)
 }
