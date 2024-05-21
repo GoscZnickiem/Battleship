@@ -13,7 +13,7 @@ public class MenuScene implements Scene
 		Scanner scanner = new Scanner(System.in);
 		while(true) 
 		{
-			System.out.print("\nWpisz q aby wyjść, s żeby zacząć grać lub r żeby opuścić zrobić render: ");
+			System.out.print("\nWpisz polecenie: \n q - wyjdź\n s - wejdź do GameScene\n r - wykonaj render\n client - otwórz test clienta\n server - otwórz test servera\n-> ");
 			String command = scanner.nextLine();
 
 			if(command.equalsIgnoreCase("q"))
@@ -28,6 +28,16 @@ public class MenuScene implements Scene
 			}
 			else if(command.equalsIgnoreCase("r"))
 			{
+				break;
+			}
+			else if(command.equalsIgnoreCase("client"))
+			{
+				game.changeScene(new NetworkTestScene(game, false));
+				break;
+			}
+			else if(command.equalsIgnoreCase("server"))
+			{
+				game.changeScene(new NetworkTestScene(game, true));
 				break;
 			}
 		}
