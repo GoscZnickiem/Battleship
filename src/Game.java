@@ -6,7 +6,8 @@ public class Game
 {
 	public Game() 
 	{
-		m_isRunning = true;
+		isRunning = true;
+		currentScene = new MenuScene(this);
 	}
 
 	public void run() 
@@ -18,8 +19,8 @@ public class Game
 		{
 			long startTime = System.nanoTime();
 
-			update();
 			render();
+			update();
 
 			long endTime = System.nanoTime();
 
@@ -38,14 +39,24 @@ public class Game
 		}
 	}
 
+	public void changeScene(Scene newScene)
+	{
+		currentScene = newScene;
+	}
+
+	public void exit()
+	{
+		isRunning = false;
+	}
+
 	private void update() 
 	{
-		System.out.println("updat");
+		currentScene.update();
 	}
 
 	private void render() 
 	{
-		System.out.println("rendr");
+		currentScene.render();
 	}
 
 	private int getMonitorRefreshRate() 
@@ -57,6 +68,7 @@ public class Game
         return displayMode.getRefreshRate();
 	}
 
+	private Scene currentScene;
 	private boolean isRunning;
-	// Tu pewnie m_canvas lub m_window (jeszcze to ogarne narazie nie przejmujmy sie grafiką)
+	// Tu pewnie canvas lub window (jeszcze to ogarne narazie nie przejmujmy sie grafiką)
 }
