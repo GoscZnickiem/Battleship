@@ -21,7 +21,8 @@ public class NetworkTestScene implements Scene
 		networkDevice.connect(); // It should not try to connect many times
         while (!networkDevice.connected()) {
             try {
-                Thread.sleep(100); 
+                Thread.sleep(1000); 
+				System.out.println("why");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

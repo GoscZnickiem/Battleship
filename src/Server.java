@@ -1,42 +1,12 @@
 import java.io.*;
 import java.net.*;
 
-public class Server implements NetworkDevice
+public class Server extends NetworkDevice 
 {
 	public Server() 
 	{
 		connected = false;
 		port = 8900;
-	}
-
-	@Override
-	public void sendPackage(GamePackage pkg) 
-	{
-		try 
-		{
-            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-            out.writeObject(pkg);
-            out.flush();
-        } 
-		catch (IOException e) 
-		{
-            e.printStackTrace();
-        }
-	}
-
-	@Override
-	public GamePackage receivePackage()
-	{
-		try 
-		{
-            ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-            return (GamePackage) in.readObject();
-        }
-		catch (IOException | ClassNotFoundException e) 
-		{
-            e.printStackTrace();
-            return null;
-        }
 	}
 
 	@Override
@@ -46,10 +16,10 @@ public class Server implements NetworkDevice
 		{
 			try 
 			{
-				if (clientSocket == null || clientSocket.isClosed()) 
+				if (socket == null || socket.isClosed()) 
 				{
 					serverSocket = new ServerSocket(port);
-					clientSocket = serverSocket.accept();
+					socket = serverSocket.accept();
 					connected = true;
 					System.out.println("Client connected.");
 				} 
@@ -65,14 +35,6 @@ public class Server implements NetworkDevice
         }).start();
 	}
 
-	@Override
-	public boolean connected()
-	{
-		return connected;
-	}
-
 	private ServerSocket serverSocket;
-    private Socket clientSocket;
-	private boolean connected;
 	private int port;
 }
