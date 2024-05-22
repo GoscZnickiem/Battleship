@@ -6,6 +6,8 @@ public abstract class NetworkDevice
 
 	public abstract void connect();
 
+	public abstract void disconnect();
+
 	public boolean connected() {
 		return connected;
 	}
@@ -14,22 +16,26 @@ public abstract class NetworkDevice
 		return connecting;
 	}
 
-	public void sendPackage(GamePackage pkg) 
+	public boolean sendPackage(GamePackage pkg) 
 	{
-		try 
-		{
+		if(!connected) {
+			return false;
+		}
+		try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(pkg);
             out.flush();
         }
-		catch (IOException e) 
-		{
+		catch (IOException e) {
             e.printStackTrace();
         }
+		return true;
 	}
 
-	public GamePackage receivePackage()
-	{
+	public GamePackage receivePackage() {
+		if(!connected) {
+			return new GamePackage(0, "NULL");
+		}
 	    try 
 		{
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -38,7 +44,7 @@ public abstract class NetworkDevice
 		catch (IOException | ClassNotFoundException e) 
 		{
             e.printStackTrace();
-            return null;
+			return new GamePackage(0, "NULL");
         }
 	}
 

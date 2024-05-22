@@ -57,6 +57,22 @@ public class Client extends NetworkDevice
         }).start();
 	}
 
+	@Override
+	public void disconnect() {
+		if(connected) {
+			return;
+		}
+		try {
+			if (socket != null && !socket.isClosed()) {
+				socket.close();
+			}
+			connected = false;
+			System.out.println("Connection closed.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private String ip;
 	private int port;
 }

@@ -43,6 +43,26 @@ public class Server extends NetworkDevice
         }).start();
 	}
 
+	@Override
+	public void disconnect()
+	{
+		if(connected) {
+			return;
+		}
+		try {
+			if (socket != null && !socket.isClosed()) {
+				socket.close();
+			}
+			if (serverSocket != null && !serverSocket.isClosed()) {
+				serverSocket.close();
+			}
+			connected = false;
+			System.out.println("Connection closed.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private ServerSocket serverSocket;
 	private int port;
 }

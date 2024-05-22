@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Scanner;
 
 public class JoinGameScene implements Scene {
 	public JoinGameScene(Game g) {
@@ -8,10 +9,35 @@ public class JoinGameScene implements Scene {
 
 	@Override
 	public void update() {
-		if(!netDevice.connected()) {
-			netDevice.connect();
-		} else {
-			System.out.println("yo");
+		Scanner scanner = new Scanner(System.in);
+		while(true) {
+			System.out.print("\n q - quit\n c - connect\n s - send package\n r - read package\n");
+			String command = scanner.nextLine();
+
+			if(command.equalsIgnoreCase("q")) {
+				netDevice.disconnect();
+				game.changeScene(new MenuScene(game));
+				break;
+			}
+			else if(command.equalsIgnoreCase("c")) {
+				if(!netDevice.connected()) {
+					netDevice.connect();
+				} else {
+					System.out.println("already connected");
+				}
+				break;
+			}
+			else if(command.equalsIgnoreCase("s")) {
+				GamePackage messagePackage = new GamePackage(0, command);
+				netDevice.sendPackage(messagePackage);
+				break;
+			}
+			else if(command.equalsIgnoreCase("r")) {
+				GamePackage receivedPackage = netDevice.receivePackage();
+				String receivedMessage = receivedPackage.message;
+				System.out.println("Odebrano wiadomość: " + receivedMessage);
+				break;
+			}
 		}
 	}
 
