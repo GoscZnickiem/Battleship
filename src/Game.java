@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,6 +19,8 @@ public class Game extends JPanel {
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
         addMouseWheelListener(mouse);
+
+		texMan = new TextureManager();
 
 		currentScene = new MenuScene(this);
 		this.frame = frame;
@@ -45,6 +48,10 @@ public class Game extends JPanel {
 		return mouse;
 	}
 
+	public BufferedImage getTexture(String name) {
+		return texMan.getTexture(name);
+	}
+
 	private void update()  {
 		currentScene.update();
 	}
@@ -67,6 +74,7 @@ public class Game extends JPanel {
 	public static final int HEIGHT = 600;
 	private Scene currentScene;
 	private Timer loop;
+	private TextureManager texMan;
 	private Mouse mouse;
 	private JFrame frame;
 

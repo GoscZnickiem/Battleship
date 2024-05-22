@@ -61,6 +61,8 @@ public class MenuScene implements Scene
         int centerX = (Game.WIDTH - textWidth) / 2;
         int centerY = (Game.HEIGHT - textHeight) / 2 + fm.getAscent();
         g.drawString(text, centerX, centerY);
+
+		g.drawImage(game.getTexture("test"), 100, 200, null);
 	}
 
 	private Game game;
