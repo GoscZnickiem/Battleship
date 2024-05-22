@@ -1,6 +1,3 @@
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,9 +5,6 @@ import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -20,6 +14,11 @@ import javax.swing.SwingUtilities;
 public class Game extends JPanel {
 	public Game(JFrame frame) 
 	{
+		mouse = new Mouse();
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
+        addMouseWheelListener(mouse);
+
 		currentScene = new MenuScene(this);
 		this.frame = frame;
 
@@ -33,24 +32,24 @@ public class Game extends JPanel {
 		}, 100, 1000 / 30);
 	}
 
-	public void changeScene(Scene newScene)
-	{
+	public void changeScene(Scene newScene) {
 		currentScene = newScene;
 	}
 
-	public void exit()
-	{
+	public void exit() {
 		loop.cancel();
 		frame.dispose();
 	}
 
-	private void update() 
-	{
+	public Mouse getMouse() {
+		return mouse;
+	}
+
+	private void update()  {
 		currentScene.update();
 	}
 
-	private void render(Graphics2D g) 
-	{
+	private void render(Graphics2D g) {
 		currentScene.render(g);
 	}
 
@@ -68,6 +67,7 @@ public class Game extends JPanel {
 	public static final int HEIGHT = 600;
 	private Scene currentScene;
 	private Timer loop;
+	private Mouse mouse;
 	private JFrame frame;
 
 	private static final long serialVersionUID = 1L;
