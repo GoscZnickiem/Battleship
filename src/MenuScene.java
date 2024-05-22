@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 
 public class MenuScene implements Scene 
@@ -49,9 +50,19 @@ public class MenuScene implements Scene
 	}
 
 	@Override
-	public void render() 
+	public void render(Graphics2D g) 
 	{
 		System.out.println("Renderuje MainMenu");
+
+		String text = "Main Menu";
+		g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(text);
+        int textHeight = fm.getHeight();
+        int centerX = (Game.WIDTH - textWidth) / 2;
+        int centerY = (Game.HEIGHT - textHeight) / 2 + fm.getAscent();
+        g.drawString(text, centerX, centerY);
 	}
 
 	private Game game;

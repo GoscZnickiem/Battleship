@@ -1,42 +1,35 @@
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-public class Game 
-{
+public class Game extends JPanel {
 	public Game() 
 	{
-		isRunning = true;
 		currentScene = new MenuScene(this);
-	}
 
-	public void run() 
-	{
-		long minTime = 2000000000 / getMonitorRefreshRate();
-		minTime = 2000000000;	//temp
-
-		while (isRunning) 
-		{
-			long startTime = System.nanoTime();
-
-			render();
-			update();
-
-			long endTime = System.nanoTime();
-
-			long tooEarly = minTime - (endTime - startTime);
-			if(tooEarly > 0) 
-			{
-				try 
-				{
-                    Thread.sleep(tooEarly / 1000000, (int) (tooEarly % 1000000));
-                } 
-				catch (InterruptedException e) 
-				{
-                    e.printStackTrace();
-                }
+		loop = new Timer();
+		loop.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				update();
+				repaint();
 			}
-		}
+		}, 100, 1000 / 30);
 	}
 
 	public void changeScene(Scene newScene)
@@ -46,7 +39,7 @@ public class Game
 
 	public void exit()
 	{
-		isRunning = false;
+		loop.cancel();
 	}
 
 	private void update() 
@@ -54,21 +47,25 @@ public class Game
 		currentScene.update();
 	}
 
-	private void render() 
+	private void render(Graphics2D g) 
 	{
-		currentScene.render();
+		currentScene.render(g);
 	}
 
-	private int getMonitorRefreshRate() 
-	{
-        GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] devices = graphicsEnvironment.getScreenDevices();
-        GraphicsDevice device = devices[0];
-        DisplayMode displayMode = device.getDisplayMode();
-        return displayMode.getRefreshRate();
+    private final Stroke stroke = new BasicStroke(3);
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setStroke(stroke);
+		render(g2d);
 	}
 
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	private Scene currentScene;
-	private boolean isRunning;
-	// Tu pewnie canvas lub window (jeszcze to ogarne narazie nie przejmujmy sie grafiką)
+	private Timer loop;
+
+	private static final long serialVersionUID = 1L;
 }

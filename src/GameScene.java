@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.Scanner;
 
 public class GameScene implements Scene 
@@ -34,7 +35,7 @@ public class GameScene implements Scene
 	}
 
 	@Override
-	public void render() 
+	public void render(Graphics2D g) 
 	{
 		System.out.println("Renderuje GameScene");
 	}

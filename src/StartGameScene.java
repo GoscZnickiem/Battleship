@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+
 public class StartGameScene implements Scene {
 	public StartGameScene(Game g) {
 		game = g;
@@ -10,7 +12,7 @@ public class StartGameScene implements Scene {
 	}
 
 	@Override
-	public void render() {
+	public void render(Graphics2D g) {
 		System.out.println("Renderuje StartGameScene");
 	}
 

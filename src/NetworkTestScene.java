@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.Scanner;
 
 public class NetworkTestScene implements Scene 
@@ -53,7 +54,7 @@ public class NetworkTestScene implements Scene
 	}
 
 	@Override
-	public void render() 
+	public void render(Graphics2D g) 
 	{
 		System.out.println("Renderuje Client/Server");
 	}

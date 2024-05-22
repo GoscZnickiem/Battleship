@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+
 public class JoinGameScene implements Scene {
 	public JoinGameScene(Game g) {
 		game = g;
@@ -10,7 +12,7 @@ public class JoinGameScene implements Scene {
 	}
 
 	@Override
-	public void render() {
+	public void render(Graphics2D g) {
 		System.out.println("Renderuje JoinGameScene");
 	}
 
