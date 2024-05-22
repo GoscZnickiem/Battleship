@@ -10,6 +10,22 @@ public class Client extends NetworkDevice
 		ip = "localhost";
 	}
 
+	public void setIP(String ip) {
+		this.ip = ip;
+	}
+
+	public String getIP() {
+		return ip;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
 	@Override
 	public void connect()
 	{

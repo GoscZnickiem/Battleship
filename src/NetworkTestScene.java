@@ -22,7 +22,6 @@ public class NetworkTestScene implements Scene
         while (!networkDevice.connected()) {
             try {
                 Thread.sleep(1000); 
-				System.out.println("why");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

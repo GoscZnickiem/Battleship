@@ -9,6 +9,10 @@ public class Server extends NetworkDevice
 		port = 8900;
 	}
 
+	public void setPort(int port) {
+		this.port = port;
+	}
+
 	@Override
 	public void connect()
 	{

@@ -13,7 +13,7 @@ public class MenuScene implements Scene
 		Scanner scanner = new Scanner(System.in);
 		while(true) 
 		{
-			System.out.print("\nWpisz polecenie: \n q - wyjdź\n s - wejdź do GameScene\n r - wykonaj render\n client - otwórz test clienta\n server - otwórz test servera\n-> ");
+			System.out.print("\nWpisz polecenie: \n q - wyjdź\n s - start game\n j - join game\n r - wykonaj render\n client - otwórz test clienta\n server - otwórz test servera\n-> ");
 			String command = scanner.nextLine();
 
 			if(command.equalsIgnoreCase("q"))
@@ -23,7 +23,12 @@ public class MenuScene implements Scene
 			}
 			else if(command.equalsIgnoreCase("s"))
 			{
-				game.changeScene(new GameScene(game));
+				game.changeScene(new StartGameScene(game));
+				break;
+			}
+			else if(command.equalsIgnoreCase("j"))
+			{
+				game.changeScene(new JoinGameScene(game));
 				break;
 			}
 			else if(command.equalsIgnoreCase("r"))
