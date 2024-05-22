@@ -6,8 +6,8 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Game game = new Game();
 				JFrame frame = new JFrame();
+				Game game = new Game(frame);
 				frame.setTitle("2D Physics - Box vs Box / Impulse resolution test (with rotation)");
 				frame.getContentPane().add(game);
 				frame.setSize(Game.WIDTH, Game.HEIGHT);

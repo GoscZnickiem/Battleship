@@ -18,9 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class Game extends JPanel {
-	public Game() 
+	public Game(JFrame frame) 
 	{
 		currentScene = new MenuScene(this);
+		this.frame = frame;
 
 		loop = new Timer();
 		loop.scheduleAtFixedRate(new TimerTask() {
@@ -40,6 +41,7 @@ public class Game extends JPanel {
 	public void exit()
 	{
 		loop.cancel();
+		frame.dispose();
 	}
 
 	private void update() 
@@ -66,6 +68,7 @@ public class Game extends JPanel {
 	public static final int HEIGHT = 600;
 	private Scene currentScene;
 	private Timer loop;
+	private JFrame frame;
 
 	private static final long serialVersionUID = 1L;
 }

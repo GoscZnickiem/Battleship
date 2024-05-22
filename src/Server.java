@@ -16,6 +16,10 @@ public class Server extends NetworkDevice
 	@Override
 	public void connect()
 	{
+		if(connecting) {
+			return;
+		}
+		connecting = true;
 		new Thread(() -> 
 		{
 			try 

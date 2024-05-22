@@ -6,6 +6,7 @@ public class Client extends NetworkDevice
 	public Client() 
 	{
 		connected = false;
+		connecting = false;
 		port = 8900;
 		ip = "localhost";
 	}
@@ -29,6 +30,10 @@ public class Client extends NetworkDevice
 	@Override
 	public void connect()
 	{
+		if(connecting) {
+			return;
+		}
+		connecting = true;
 		new Thread(() -> {
 			while(!connected)
 			{

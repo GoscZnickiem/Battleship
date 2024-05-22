@@ -10,6 +10,10 @@ public abstract class NetworkDevice
 		return connected;
 	}
 
+	public boolean connecting() {
+		return connecting;
+	}
+
 	public void sendPackage(GamePackage pkg) 
 	{
 		try 
@@ -40,5 +44,6 @@ public abstract class NetworkDevice
 
     protected Socket socket;
 	protected boolean connected;
+	protected boolean connecting;
 
 }

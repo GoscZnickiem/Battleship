@@ -52,8 +52,6 @@ public class MenuScene implements Scene
 	@Override
 	public void render(Graphics2D g) 
 	{
-		System.out.println("Renderuje MainMenu");
-
 		String text = "Main Menu";
 		g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 30));

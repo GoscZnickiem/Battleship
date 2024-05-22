@@ -1,4 +1,4 @@
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.Scanner;
 
 public class GameScene implements Scene 
