@@ -8,7 +8,7 @@ public class Main {
 			public void run() {
 				JFrame frame = new JFrame();
 				Game game = new Game(frame);
-				frame.setTitle("2D Physics - Box vs Box / Impulse resolution test (with rotation)");
+				frame.setTitle("BattleShip");
 				frame.getContentPane().add(game);
 				frame.setSize(Game.WIDTH, Game.HEIGHT);
 				frame.setLocationRelativeTo(null);
