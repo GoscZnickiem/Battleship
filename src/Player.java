@@ -23,7 +23,7 @@ public class Player
     public Position getShootingPos()
     {
         System.out.print("\nKliknij w pole w które chcesz strzelić");
-        Position mouse_pos = game.getMouse().clickedMousePosition();
+        Position mouse_pos = game.getMouse().clickedPosition();
         Position pos = null;
         if (mouse_pos == null)
         {

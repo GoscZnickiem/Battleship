@@ -81,6 +81,11 @@ public class Mouse extends MouseAdapter {
 		return temp;
 	}
 
+	public Position clickedPosition() {
+		if(!isClicked()) return null;
+		return new Position(x, y);
+	}
+
 	private int x;
 	private int y;
 	private boolean pressed = false;
