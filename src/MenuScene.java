@@ -11,41 +11,27 @@ public class MenuScene implements Scene
 	@Override
 	public void update() 
 	{
-		Scanner scanner = new Scanner(System.in);
-		while(true) 
-		{
-			System.out.print("\nWpisz polecenie: \n q - wyjdź\n s - start game\n j - join game\n r - wykonaj render\n client - otwórz test clienta\n server - otwórz test servera\n-> ");
-			String command = scanner.nextLine();
+		String command = "chuj";
 
-			if(command.equalsIgnoreCase("q"))
-			{
-				game.exit();
-				break;
-			}
-			else if(command.equalsIgnoreCase("s"))
-			{
-				game.changeScene(new StartGameScene(game));
-				break;
-			}
-			else if(command.equalsIgnoreCase("j"))
-			{
-				game.changeScene(new JoinGameScene(game));
-				break;
-			}
-			else if(command.equalsIgnoreCase("r"))
-			{
-				break;
-			}
-			else if(command.equalsIgnoreCase("client"))
-			{
-				game.changeScene(new NetworkTestScene(game, false));
-				break;
-			}
-			else if(command.equalsIgnoreCase("server"))
-			{
-				game.changeScene(new NetworkTestScene(game, true));
-				break;
-			}
+		if(command.equalsIgnoreCase("q") || game.getMouse().isClicked())
+		{
+			game.exit();
+		}
+		else if(command.equalsIgnoreCase("s"))
+		{
+			game.changeScene(new StartGameScene(game));
+		}
+		else if(command.equalsIgnoreCase("j"))
+		{
+			game.changeScene(new JoinGameScene(game));
+		}
+		else if(command.equalsIgnoreCase("client"))
+		{
+			game.changeScene(new NetworkTestScene(game, false));
+		}
+		else if(command.equalsIgnoreCase("server"))
+		{
+			game.changeScene(new NetworkTestScene(game, true));
 		}
 	}
 

@@ -1,7 +1,6 @@
 import java.awt.Graphics2D;
 
-public interface Scene 
-{
+public interface Scene {
 
 	public void update();
 
