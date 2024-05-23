@@ -2,12 +2,30 @@ import java.io.Serializable;
 
 public class GamePackage implements Serializable
 {
-	public GamePackage(int num, String msg)
+	public GamePackage(boolean done)
 	{
-		number = num;
-		message = msg;
+		this.done = done;
 	}
+	public GamePackage(Position pos)
+	{
+		this.position = pos;
+	}
+	public GamePackage(ShootingResponse a)
+	{
+		this.shootingStatus = a;
+	}
+	public boolean done = false;
+	public Position position = null;
+	public ShootingResponse shootingStatus = null;
 
-	public int number;
-	public String message;
+
+	
+	// residuals which are not deleted because they are used in Maciek's code
+	public int number = 0;
+	public String message = null;
+	public GamePackage(int number, String msg)
+	{
+		this.number = number;
+		this.message = msg;
+	}
 }
