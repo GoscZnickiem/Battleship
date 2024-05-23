@@ -48,8 +48,8 @@ public class Game extends JPanel {
 		return mouse;
 	}
 
-	public BufferedImage getTexture(String name) {
-		return texMan.getTexture(name);
+	public TextureManager getTextureManager() {
+		return texMan;
 	}
 
 	private void update()  {
@@ -70,8 +70,8 @@ public class Game extends JPanel {
 		render(g2d);
 	}
 
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 	private Scene currentScene;
 	private Timer loop;
 	private TextureManager texMan;
