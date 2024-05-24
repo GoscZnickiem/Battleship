@@ -3,7 +3,7 @@ public class Board {
 
     // we assume that a board is a square and every space is a square
     public static final int SIZE = 10;
-    public static final int SPACE_SIZE = 50; // size of single square on a board
+    public static final int SPACE_SIZE = 40; // size of single square on a board
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
     public Position POSITION;
 
@@ -22,20 +22,7 @@ public class Board {
         }
     }
 
-    public void updateHits(Position pos, ShootingResponse response)
-    {
-        switch (response) {
-            case MISSED:
-                this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
-                break;
-            case WOUNDED:
-                this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
-                break;
-            case KILLED:
-                this.markKilledShip(this.getShip(pos));
-                break;
-        }
-    }
+    public boolean correctPos(Position a) { return false; }
  
     public Position convertToBoardPosition(Position mousePosition)
     {
@@ -45,22 +32,35 @@ public class Board {
         return null;
     }
 
-    public Ship getShip(Position pos)
-    {
-        return this.spaces[pos.x][pos.y].getShip();
-    }
 
+
+    public void updateHits(Position pos, ShootingResponse response, Ship ship)
+    {
+        switch (response) {
+            case MISSED:
+                this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
+                break;
+            case WOUNDED:
+                this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
+                break;
+            case KILLED:
+                this.markKilledShip(ship);
+                break;
+        }
+    }
+    
     public void markKilledShip(Ship ship)
     {
+        // has to do it this way so that if a ship is an object sent from a different computer it still works
         for (Space sp : ship.spaces()) 
         {
-            sp.setHit(Space.HitValue.HIT);
+            Position pos = sp.position();
+            this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
         }
         for (Space sp : ship.border())
         {
-            sp.setHit(Space.HitValue.MISS);
+            Position pos = sp.position();
+            this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
         }
     }
-
-
 }

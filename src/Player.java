@@ -1,18 +1,14 @@
-import java.util.Scanner;
-
 public class Player 
 {
     private String name;
     private HomeBoard homeBoard;
     private ShootingBoard shootingBoard;
-    private Game game;
 
-    public Player(String name, Game game)
+    public Player(String name)
     {
         this.name = new String(name);
         this.homeBoard = new HomeBoard();
         this.shootingBoard = new ShootingBoard();
-        this.game = game;
     }
 
     public String getName()
@@ -20,29 +16,68 @@ public class Player
         return this.name;
     }
 
-    public Position getShootingPos()
+    // if board == true then on homeBoard
+    // if board == false then on ShootingBoard
+    public Position getPosOnBoard(boolean homeBd, Mouse mouse)
     {
-        System.out.print("\nKliknij w pole w które chcesz strzelić");
-        Position mouse_pos = game.getMouse().clickedPosition();
+        Board board = null;
+        if (homeBd) board = this.homeBoard;
+        else board = this.shootingBoard;
+        Position mouse_pos = mouse.clickedPosition();
         Position pos = null;
         if (mouse_pos == null)
         {
-            pos = shootingBoard.convertToBoardPosition(mouse_pos); 
+            pos = board.convertToBoardPosition(mouse_pos); 
         }
-        if (pos != null && shootingBoard.shootable(pos)) return pos;
-        return null;
+        return pos;
+    }
+
+    public boolean correctShootingPos(Position pos)
+    {
+        if (pos != null && this.shootingBoard.correctPos(pos)) return true;
+        return false;
+    }
+
+    public boolean correctShipPos(Position pos, Orientation orientation, int length)
+    {
+        if (pos == null) return false;
+        Position a = new Position(pos.x, pos.y);
+        boolean cond = orientation == Orientation.HORIZONTAL;
+        for (int i = 0; i < length; i++)
+        {
+            if (this.homeBoard.correctPos(a)) return false;
+            if (cond) 
+                a.x += 1;
+            else
+                a.y += 1;
+        }
+        return true;
+    }
+
+    public void putShip(Position pos, Orientation orientation, Ship ship)
+    {
+        boolean cond = orientation == Orientation.HORIZONTAL;
+        Position a = new Position(pos.x, pos.y);
+        for (int i = 0; i < ship.length; i++)
+        {
+            this.homeBoard.addShip(a, ship);
+            if (cond) 
+                a.x += 1;
+            else
+                a.y += 1;
+        }
     }
 
     // if board == true then on homeBoard
     // if board == false then on ShootingBoard
-    public void updateHitsOnPlayerBoard(boolean homeBd, Position pos, ShootingResponse response)
+    public void updateHitsOnPlayerBoard(boolean homeBd, Position pos, ShootingResponse response, Ship ship)
     {
         Board board = null;
         if (homeBd) 
             board = this.homeBoard;
         else 
             board = this.shootingBoard;
-        board.updateHits(pos, response);
+        board.updateHits(pos, response, ship);
     }
 
     public ShootingResponse getShootingResponse(Position pos)
@@ -58,5 +93,10 @@ public class Player
         {
             return ShootingResponse.MISSED;
         }
+    }
+
+    public Ship getShip(Position pos)
+    {
+        return this.homeBoard.getShip(pos);
     }
 }

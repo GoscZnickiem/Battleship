@@ -41,6 +41,19 @@ public class Button {
 		g.drawRect(x - width / 2, y - height / 2, width, height);
 	}
 
+	public int getWidth() { return this.width; }
+	public int getHeight() { return this.height; }
+
+	public void setVals(int x, int y, int w, int h, String tex)
+	{
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
+		texture = game.getTextureManager().getTexture(tex);
+
+	} 
+	
 	private int x;
 	private int y;
 	private int width;
