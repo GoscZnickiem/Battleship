@@ -34,7 +34,7 @@ public abstract class NetworkDevice
 
 	public GamePackage receivePackage() {
 		if(!connected) {
-			return new GamePackage(0, "NULL");
+			return new GamePackage(1);
 		}
 	    try 
 		{
@@ -44,7 +44,7 @@ public abstract class NetworkDevice
 		catch (IOException | ClassNotFoundException e) 
 		{
             e.printStackTrace();
-			return new GamePackage(0, "NULL");
+			return new GamePackage(1);
         }
 	}
 

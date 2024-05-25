@@ -1,43 +1,30 @@
 import java.awt.*;
-import java.util.Scanner;
 
 public class JoinGameScene implements Scene {
 	public JoinGameScene(Game g) {
 		game = g;
 		netDevice = new Client();
+
+		back = new Button(game, Game.WIDTH / 2, 650, 160, 80, "t1", "t2");
+		connect = new Button(game, Game.WIDTH / 2, 500, 160, 80, "t1", "t2");
 	}
 
 	@Override
 	public void update() {
-		Scanner scanner = new Scanner(System.in);
-		while(true) {
-			System.out.print("\n q - quit\n c - connect\n s - send package\n r - read package\n");
-			String command = scanner.nextLine();
+		String command = "lol";
 
-			if(command.equalsIgnoreCase("q")) {
-				netDevice.disconnect();
-				game.changeScene(new MenuScene(game));
-				break;
-			}
-			else if(command.equalsIgnoreCase("c")) {
-				if(!netDevice.connected()) {
-					netDevice.connect();
-				} else {
-					System.out.println("already connected");
-				}
-				break;
-			}
-			else if(command.equalsIgnoreCase("s")) {
-				GamePackage messagePackage = new GamePackage(0, command);
-				netDevice.sendPackage(messagePackage);
-				break;
-			}
-			else if(command.equalsIgnoreCase("r")) {
-				GamePackage receivedPackage = netDevice.receivePackage();
-				String receivedMessage = receivedPackage.message;
-				System.out.println("Odebrano wiadomość: " + receivedMessage);
-				break;
-			}
+		if(back.isClicked()) {
+			netDevice.disconnect();
+			game.changeScene(new MenuScene(game));
+		} else if(connect.isClicked()) {
+			netDevice.connect();
+		} else if(command.equalsIgnoreCase("s")) {
+			// GamePackage messagePackage = new GamePackage(0, command);
+			// netDevice.sendPackage(messagePackage);
+		} else if(command.equalsIgnoreCase("r")) {
+			// GamePackage receivedPackage = netDevice.receivePackage();
+			// String receivedMessage = receivedPackage.message;
+			// System.out.println("Odebrano wiadomość: " + receivedMessage);
 		}
 	}
 
@@ -63,8 +50,13 @@ public class JoinGameScene implements Scene {
         int centerX2 = (Game.WIDTH - textWidth2) / 2;
         int centerY2 = (Game.HEIGHT - textHeight2) / 4 + fm2.getAscent();
         g.drawString(con, centerX2, centerY2);
+
+		back.render(g);
+		connect.render(g);
 	}
 
 	private Client netDevice;
+	private Button back;
+	private Button connect;
 	private Game game;
 }

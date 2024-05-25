@@ -30,7 +30,7 @@ public class Client extends NetworkDevice
 	@Override
 	public void connect()
 	{
-		if(connecting) {
+		if(connecting || connected) {
 			return;
 		}
 		connecting = true;

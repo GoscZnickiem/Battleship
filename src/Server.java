@@ -16,7 +16,7 @@ public class Server extends NetworkDevice
 	@Override
 	public void connect()
 	{
-		if(connecting) {
+		if(connecting || connected) {
 			return;
 		}
 		connecting = true;

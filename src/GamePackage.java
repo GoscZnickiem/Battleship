@@ -18,5 +18,10 @@ public class GamePackage implements Serializable
 	public boolean done = false;
 	public Position position = null;
 	public ShootingResponse shootingStatus = null;
-	public Ship ship;
+	public Ship ship = null;
+
+	public GamePackage(int err) {
+		errorMsg = err;
+	}
+	public int errorMsg = 0;
 }
