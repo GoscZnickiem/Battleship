@@ -2,15 +2,10 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class Game extends JPanel {
 	public Game(JFrame frame) 
@@ -54,6 +49,7 @@ public class Game extends JPanel {
 
 	private void update()  {
 		currentScene.update();
+		mouse.update();
 	}
 
 	private void render(Graphics2D g) {

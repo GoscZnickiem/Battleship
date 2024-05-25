@@ -6,6 +6,7 @@ public class Server extends NetworkDevice
 	public Server() 
 	{
 		connected = false;
+		connecting = false;
 		port = 8900;
 	}
 
@@ -20,35 +21,29 @@ public class Server extends NetworkDevice
 			return;
 		}
 		connecting = true;
-		new Thread(() -> 
-		{
-			try 
-			{
-				if (socket == null || socket.isClosed()) 
-				{
+		connectThread = new Thread(() -> {
+			try {
+				if (socket == null || socket.isClosed()) {
 					serverSocket = new ServerSocket(port);
 					socket = serverSocket.accept();
 					connected = true;
+					connecting = false;
 					System.out.println("Client connected.");
-				} 
-				else 
-				{
+				} else {
 					System.out.println("Server is already connected.");
 				}         
-			} 
-			catch (IOException e) 
-			{
-                e.printStackTrace();
-            }
-        }).start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		connectThread.start();
 	}
 
 	@Override
-	public void disconnect()
-	{
-		if(connected) {
-			return;
-		}
+	public void disconnect() {
+        if (connectThread != null) {
+            connectThread.interrupt();
+        }
 		try {
 			if (socket != null && !socket.isClosed()) {
 				socket.close();
@@ -65,4 +60,5 @@ public class Server extends NetworkDevice
 
 	private ServerSocket serverSocket;
 	private int port;
+	private Thread connectThread;
 }

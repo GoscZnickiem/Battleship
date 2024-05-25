@@ -12,7 +12,6 @@ public class Mouse extends MouseAdapter {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		pressedPrev = pressed;
 		pressed = e.getButton() == 1;
 	}
 
@@ -22,7 +21,6 @@ public class Mouse extends MouseAdapter {
 			return;
 		}
 		pressed = false;
-		pressedPrev = false;
 		dragged = false;
 	}
 
@@ -84,6 +82,10 @@ public class Mouse extends MouseAdapter {
 	public Position clickedPosition() {
 		if(!isClicked()) return null;
 		return new Position(x, y);
+	}
+
+	public void update() {
+		pressedPrev = pressed;
 	}
 
 	private int x;

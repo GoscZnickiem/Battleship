@@ -49,7 +49,7 @@ public abstract class NetworkDevice
 	}
 
     protected Socket socket;
-	protected boolean connected;
-	protected boolean connecting;
+	protected volatile boolean connected;
+	protected volatile boolean connecting;
 
 }

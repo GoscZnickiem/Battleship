@@ -34,34 +34,34 @@ public class Client extends NetworkDevice
 			return;
 		}
 		connecting = true;
-		new Thread(() -> {
-			while(!connected)
-			{
-				try 
-				{
+		connectThread = new Thread(() -> {
+			while(!connected && connecting) {
+				try {
 					socket = new Socket(ip, port);
 					connected = true;
+					connecting = false;
 					System.out.println("Connected to server.");
-				} 
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					e.printStackTrace();
 					System.out.println("retry connection");
 					try {
 						Thread.sleep(1000); 
 					} catch (InterruptedException e2) {
-						e2.printStackTrace();
+					e2.printStackTrace();
 					}
 				}
 			}
-        }).start();
+		});
+		connectThread.start();
 	}
 
 	@Override
 	public void disconnect() {
-		if(connected) {
-			return;
-		}
+		connecting = false;
+        if (connectThread != null) {
+            connectThread.interrupt();
+        }
+		System.out.println("disconnecting...");
 		try {
 			if (socket != null && !socket.isClosed()) {
 				socket.close();
@@ -75,4 +75,5 @@ public class Client extends NetworkDevice
 
 	private String ip;
 	private int port;
+	private Thread connectThread;
 }
