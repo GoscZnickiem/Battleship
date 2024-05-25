@@ -19,15 +19,4 @@ public class GamePackage implements Serializable
 	public Position position = null;
 	public ShootingResponse shootingStatus = null;
 	public Ship ship;
-
-
-	
-	// residuals which are not deleted because they are used in Maciek's code
-	public int number = 0;
-	public String message = null;
-	public GamePackage(int number, String msg)
-	{
-		this.number = number;
-		this.message = msg;
-	}
 }
