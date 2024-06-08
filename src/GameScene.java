@@ -115,7 +115,7 @@ public class GameScene implements Scene
 			}
 		}
 
-		// nie wiadomo po co to
+		// nie wiadomo po co to // to po chuj to tu zostawiasz xD
 		Scanner scanner = new Scanner(System.in);
 		while(true) 
 		{
@@ -135,8 +135,7 @@ public class GameScene implements Scene
 	}
 
 	@Override
-	public void render(Graphics2D g) 
-	{
-		System.out.println("Renderuje GameScene");
+	public void render(Graphics2D g) {
+		submit.render(g);
 	}
 }

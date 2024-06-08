@@ -11,8 +11,7 @@ public class MenuScene implements Scene
 	}
 
 	@Override
-	public void update() 
-	{
+	public void update() {
 		if(quitButton.isClicked()) {
 			game.exit();
 		} else if(startButton.isClicked()) {
@@ -23,8 +22,7 @@ public class MenuScene implements Scene
 	}
 
 	@Override
-	public void render(Graphics2D g) 
-	{
+	public void render(Graphics2D g) {
 		String text = "Main Menu";
 		g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 30));

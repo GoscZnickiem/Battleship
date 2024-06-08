@@ -11,20 +11,16 @@ public class JoinGameScene implements Scene {
 
 	@Override
 	public void update() {
-		String command = "lol";
-
 		if(back.isClicked()) {
 			netDevice.disconnect();
 			game.changeScene(new MenuScene(game));
 		} else if(connect.isClicked()) {
 			netDevice.connect();
-		} else if(command.equalsIgnoreCase("s")) {
-			// GamePackage messagePackage = new GamePackage(0, command);
-			// netDevice.sendPackage(messagePackage);
-		} else if(command.equalsIgnoreCase("r")) {
-			// GamePackage receivedPackage = netDevice.receivePackage();
-			// String receivedMessage = receivedPackage.message;
-			// System.out.println("Odebrano wiadomość: " + receivedMessage);
+		}
+
+		if(netDevice.connected()) {
+			GamePackage gp = netDevice.receivePackage();
+			game.changeScene(new GameScene(game, "Mariusz", gp.done, netDevice));
 		}
 	}
 
