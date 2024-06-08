@@ -70,7 +70,7 @@ public class Ship
     public void rotate()
     {
         this.orientation = ((this.orientation == Orientation.VERTICAL) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
-        this.shipButton.setVals(this.position.x, this.position.y, this.shipButton.getHeight(), this.shipButton.getWidth(), null);
+        this.shipButton.set(this.position.x, this.position.y, this.shipButton.getHeight(), this.shipButton.getWidth(), null);
     }
 
 }

@@ -44,7 +44,7 @@ public class Button {
 	public int getWidth() { return this.width; }
 	public int getHeight() { return this.height; }
 
-	public void setVals(int x, int y, int w, int h, String tex)
+	public void set(int x, int y, int w, int h, String tex)
 	{
 		this.x = x;
 		this.y = y;
