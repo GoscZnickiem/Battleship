@@ -46,10 +46,10 @@ public class GameScene implements Scene
 					this.stage = Stage.SHOOTING;
 					return;
 				}
-				if (this.selectedShip == null)
+				if (selectedShip == null)
 				{
-					Ship selectedShip = Ship.getSelectedShip(ships);
-					if (selectedShip == null) return;
+					selectedShip = Ship.getSelectedShip(ships);
+					return;
 				}
 				
 				Position chosenPos = player.getPosOnBoard(true, mouse);
@@ -137,5 +137,12 @@ public class GameScene implements Scene
 	@Override
 	public void render(Graphics2D g) {
 		submit.render(g);
+
+		if(selectedShip != null)
+			selectedShip.render(g);
+
+		for (Ship ship : ships) {
+			ship.render(g);
+		}
 	}
 }

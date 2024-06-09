@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
@@ -72,5 +73,9 @@ public class Ship
         this.orientation = ((this.orientation == Orientation.VERTICAL) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
         this.shipButton.set(this.position.x, this.position.y, this.shipButton.getHeight(), this.shipButton.getWidth(), null);
     }
+
+	public void render(Graphics2D g) {
+		shipButton.render(g);
+	}
 
 }
