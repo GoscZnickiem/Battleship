@@ -27,7 +27,7 @@ public class Game extends JPanel {
 				update();
 				repaint();
 			}
-		}, 100, 1000 / 30);
+		}, 100, 1000 / 60);
 	}
 
 	public void changeScene(Scene newScene) {

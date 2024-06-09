@@ -1,9 +1,8 @@
 public class HomeBoard extends Board 
 {
-    public HomeBoard()
+    public HomeBoard(Game g)
     {
-        super();
-        this.POSITION = new Position(100, 100);
+        super(g, 100, 100);
     }
     
     public boolean hasShip(Position pos)

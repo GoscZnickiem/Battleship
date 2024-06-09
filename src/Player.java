@@ -1,14 +1,16 @@
+import java.awt.Graphics2D;
+
 public class Player 
 {
     private String name;
     private HomeBoard homeBoard;
     private ShootingBoard shootingBoard;
 
-    public Player(String name)
+    public Player(Game g, String name)
     {
         this.name = new String(name);
-        this.homeBoard = new HomeBoard();
-        this.shootingBoard = new ShootingBoard();
+        this.homeBoard = new HomeBoard(g);
+        this.shootingBoard = new ShootingBoard(g);
     }
 
     public String getName()
@@ -25,7 +27,7 @@ public class Player
         else board = this.shootingBoard;
         Position mouse_pos = mouse.clickedPosition();
         Position pos = null;
-        if (mouse_pos == null)
+        if (mouse_pos != null)
         {
             pos = board.convertToBoardPosition(mouse_pos); 
         }
@@ -99,4 +101,9 @@ public class Player
     {
         return this.homeBoard.getShip(pos);
     }
+
+	public void render(Graphics2D g) {
+		shootingBoard.render(g);
+		homeBoard.render(g);
+	}
 }

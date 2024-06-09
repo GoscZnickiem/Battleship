@@ -70,9 +70,15 @@ public class Ship
 
     public void rotate()
     {
-        this.orientation = ((this.orientation == Orientation.VERTICAL) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
-        this.shipButton.set(this.position.x, this.position.y, this.shipButton.getHeight(), this.shipButton.getWidth(), null);
+        orientation = ((orientation == Orientation.VERTICAL) ? Orientation.HORIZONTAL : Orientation.VERTICAL);
+        shipButton.setPos(position);
+        shipButton.setSize(shipButton.getHeight(), shipButton.getWidth());
     }
+
+	public void move(Position pos) {
+		position = pos;
+		shipButton.setPos(pos);
+	}
 
 	public void render(Graphics2D g) {
 		shipButton.render(g);

@@ -61,6 +61,10 @@ public class Mouse extends MouseAdapter {
 		return y;
 	}
 
+	public Position getPos() {
+		return new Position(x, y);
+	}
+
 	public boolean isPressed() {
 		return pressed;
 	}

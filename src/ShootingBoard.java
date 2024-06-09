@@ -2,10 +2,9 @@
 public class ShootingBoard extends Board {
 
 
-    public ShootingBoard()
+    public ShootingBoard(Game g)
     {
-        super();
-        this.POSITION = new Position(600, 100);
+        super(g, 600, 100);
     }
 
     // returns true if a space is shootable, false otherwise

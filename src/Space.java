@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+
 public class Space {
     public static enum HitValue {
         HIT,
@@ -9,6 +11,7 @@ public class Space {
     private HitValue value;
     private Ship ship;
     private Position pos;
+	private Button button;
 
     public Ship getShip()
     {
@@ -21,10 +24,12 @@ public class Space {
         this.ship = ship;
     }
 
-    public Space() 
+    public Space(Game g, Position pos, int size) 
     { 
-        this.hasShip = false;
-        this.value = HitValue.NONE;
+		this.pos = pos;
+        hasShip = false;
+        value = HitValue.NONE;
+		button = new Button(g, pos.x, pos.y, size, size, "water", "waterS");
     }
 
     public Position position()
@@ -46,4 +51,8 @@ public class Space {
     {
         return hasShip;
     }
+
+	public void render(Graphics2D g) {
+		button.render(g);
+	}
 }

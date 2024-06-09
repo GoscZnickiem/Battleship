@@ -44,15 +44,24 @@ public class Button {
 	public int getWidth() { return this.width; }
 	public int getHeight() { return this.height; }
 
-	public void set(int x, int y, int w, int h, String tex)
-	{
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
-		texture = game.getTextureManager().getTexture(tex);
+	public void setPos(Position pos) {
+		x = pos.x;
+		y = pos.y;
+	}
 
-	} 
+	public void setSize(int w, int h) {
+		width = w;
+		height = h;
+	}
+
+	public void setTex(String tex) {
+		texture = game.getTextureManager().getTexture(tex);
+	}
+
+	public void setTex(String tex, String texHover) {
+		texture = game.getTextureManager().getTexture(tex);
+		hoverTexture = game.getTextureManager().getTexture(texHover);
+	}
 	
 	private int x;
 	private int y;

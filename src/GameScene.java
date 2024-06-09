@@ -24,7 +24,7 @@ public class GameScene implements Scene
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();
-		this.player = new Player(name);
+		this.player = new Player(g, name);
 		this.activeTurn = activeTurn;
 		this.networkDevice = networkDevice;
 		this.done = false;
@@ -41,31 +41,44 @@ public class GameScene implements Scene
 			{
 				if (done == true)
 				{
-					this.networkDevice.sendPackage(new GamePackage(true));
-					networkDevice.receivePackage();
-					this.stage = Stage.SHOOTING;
+					networkDevice.sendPackage(new GamePackage(true));
+					networkDevice.receivePackage(); // Wait... czekasz na odpowiedź i jej nie czytasz?
+					stage = Stage.SHOOTING;
 					return;
 				}
 				if (selectedShip == null)
 				{
 					selectedShip = Ship.getSelectedShip(ships);
 					return;
+					// Tu trochę naprawiłem. Wcześniej tworzyłeś nowy statek zamiast faktycznie ustawić selectedShip na odpowiednią wartość
 				}
-				
+
+				selectedShip.move(mouse.getPos());
+				if (mouse.getMouseScroll() != 0) selectedShip.rotate();
+
 				Position chosenPos = player.getPosOnBoard(true, mouse);
-				Orientation chosenOrientation = (mouse.getMouseScroll() % 2 == 0) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
-				if (this.selectedShip.orientation != chosenOrientation) this.selectedShip.rotate();
-				if (player.correctShipPos(chosenPos, chosenOrientation, selectedShip.length) == false) return;
 
-				player.putShip(chosenPos, chosenOrientation, selectedShip);
-				this.selectedShip = null;
-				this.shipsToSet -= 1;
+				if (!player.correctShipPos(chosenPos, selectedShip.orientation, selectedShip.length)) return;
+				// Skoro correctShipPos sprawdza czy pozycja statku jest poprawna to może przekazanie całego statku jako argument
+				// byłoby nieco bardziej czytelne niż przekazanie tylko jego parametrów
 
-				if (submit.isClicked() && this.shipsToSet == 0)
+				player.putShip(chosenPos, selectedShip.orientation, selectedShip); // Tu też
+				selectedShip = null;
+				shipsToSet -= 1;
+
+				if (submit.isClicked() && shipsToSet == 0)
 				{
-					this.done = true;
+					done = true;
 				}
 				break;
+
+				// Ten komentarz daje tu bo dotyczy całego tego bloku:
+				// Kiedy zaznaczony statek zostaje wybrany i postawiony to tak jakby "o tym nie wie"
+				// W sensie przekazujesz planszy informacje o tym gdzie ma umieścić statek i ona jakoś go tam sobie reprezentuje
+				// Ale to w praktyce tworzy dwa statki: jeden jako przycisk, drugi jako zbiór pól na planszy
+				// Nie powiem że to nierozsądna implementacja ale trzeba się przy niej upewnić, że obie kopie statku wiedzą
+				// co powinno się z nimi dziać - obecnie statek-przycisk tego nie wie i można go wybrać kilka razy... właściwie
+				// to nic nie powstrzymuje gracza przed wybraniem 6 razy statku 1x1.
 			}
 			case SHOOTING:
 			{
@@ -73,11 +86,11 @@ public class GameScene implements Scene
 				{
 					// getting position for the shoot
 					Position chosenPos = player.getPosOnBoard(false, mouse);
-					if (player.correctShootingPos(chosenPos) == false) return;
+					if (!player.correctShootingPos(chosenPos)) return;
 
 					// sending postion to the other player
 					GamePackage messagePackage = new GamePackage(chosenPos);
-					this.networkDevice.sendPackage(messagePackage);
+					networkDevice.sendPackage(messagePackage);
 
 					// waiting for the response
 					GamePackage receivedPackage = networkDevice.receivePackage();
@@ -115,7 +128,8 @@ public class GameScene implements Scene
 			}
 		}
 
-		// nie wiadomo po co to // to po chuj to tu zostawiasz xD
+		// nie wiadomo po co to 
+		// // to po chuj to tu zostawiasz xD
 		Scanner scanner = new Scanner(System.in);
 		while(true) 
 		{
@@ -136,6 +150,8 @@ public class GameScene implements Scene
 
 	@Override
 	public void render(Graphics2D g) {
+		player.render(g);
+
 		submit.render(g);
 
 		if(selectedShip != null)
@@ -144,5 +160,6 @@ public class GameScene implements Scene
 		for (Ship ship : ships) {
 			ship.render(g);
 		}
+
 	}
 }

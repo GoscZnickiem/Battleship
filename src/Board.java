@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 
 public class Board {
 
@@ -5,19 +6,19 @@ public class Board {
     public static final int SIZE = 10;
     public static final int SPACE_SIZE = 40; // size of single square on a board
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
-    public Position POSITION;
+    public Position position;
 
     protected Space spaces[][];
 
-    public Board()
+    public Board(Game g, int x, int y)
     {
-        this.POSITION = new Position(0, 0);
+        this.position = new Position(x, y);
         this.spaces = new Space[10][10];
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
             {
-                spaces[i][j] = new Space();
+                spaces[i][j] = new Space(g, new Position(position.x + i * SPACE_SIZE, position.y + j * SPACE_SIZE), SPACE_SIZE);
             }
         }
     }
@@ -26,7 +27,7 @@ public class Board {
  
     public Position convertToBoardPosition(Position mousePosition)
     {
-        Position ans = new Position((mousePosition.x - POSITION.x) / SPACE_SIZE, (mousePosition.x - POSITION.y) / SPACE_SIZE);
+        Position ans = new Position((mousePosition.x - position.x) / SPACE_SIZE, (mousePosition.x - position.y) / SPACE_SIZE);
         if (ans.x >= 0 && ans.x < SIZE && ans.y >= 0 && ans.y < SIZE)
             return ans;
         return null;
@@ -63,4 +64,12 @@ public class Board {
             this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
         }
     }
+
+	public void render(Graphics2D g) {
+		for (Space[] spaces2 : spaces) {
+			for (Space space : spaces2) {
+				space.render(g);
+			}
+		}
+	}
 }
