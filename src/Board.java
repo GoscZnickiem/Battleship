@@ -4,7 +4,7 @@ public class Board {
 
     // we assume that a board is a square and every space is a square
     public static final int SIZE = 10;
-    public static final int SPACE_SIZE = 40; // size of single square on a board
+    public static final int SPACE_SIZE = 48; // size of single square on a board
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
     public Position position;
 

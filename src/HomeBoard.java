@@ -2,7 +2,7 @@ public class HomeBoard extends Board
 {
     public HomeBoard(Game g)
     {
-        super(g, 100, 100);
+        super(g, 100 - SPACE_SIZE / 2, 100);
     }
     
     public boolean hasShip(Position pos)
