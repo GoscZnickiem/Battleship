@@ -20,7 +20,7 @@ public class GameScene implements Scene
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
 		this.shipsToSet = 10;
-		this.submit = new Button(g, 150, 550, 100, 50, "start_shooting", "start_shooting");
+		this.submit = new Button(g, 150, 650, 100, 50, "start_shooting", "t1");
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();
@@ -48,6 +48,13 @@ public class GameScene implements Scene
 					System.out.println("Changing scene");
 					return;
 				}
+
+				if (submit.isClicked() && shipsToSet <= 0)
+				{
+					done = true;
+					submit.visible = false;
+				}
+
 				if (selectedShip == null)
 				{
 					selectedShip = Ship.getSelectedShip(ships);
@@ -56,6 +63,7 @@ public class GameScene implements Scene
 
 				selectedShip.move(mouse.getPos());
 				if (mouse.getMouseScroll() != 0) selectedShip.rotate();
+
 
 				if (!mouse.isClicked()) return;
 
@@ -69,12 +77,6 @@ public class GameScene implements Scene
 				selectedShip = null;
 				shipsToSet -= 1;
 
-				System.out.println(shipsToSet);
-				if (submit.isClicked() && shipsToSet <= 0)
-				{
-					done = true;
-					submit.visible = false;
-				}
 				break;
 			}
 			case SHOOTING:
