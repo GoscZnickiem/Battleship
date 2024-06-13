@@ -44,7 +44,6 @@ public class HomeBoard extends Board
 
     public void addShip(Position pos, Ship ship)
     {
-
         this.spaces[pos.x][pos.y].addShip(ship);
     }
 

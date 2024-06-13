@@ -11,12 +11,17 @@ public class Space {
     public static final String exploded_water = "exploded_water";
     public static final String ship_space = "ship_space";
 
-    public boolean active;
+    public boolean active; // currently always true. In the future we can add each texture with S prefix and it will be the hover texture for when we set active for false
     public boolean hasShip;
     private HitValue value;
     private Ship ship;
     private Position pos;
 	private Button button;
+
+    public boolean isClicked()
+    {
+        return button.isClicked();
+    }
 
     public Ship getShip()
     {
@@ -27,6 +32,7 @@ public class Space {
     {
         this.hasShip = true;
         this.ship = ship;
+        this.button.setTex(ship_space, ship_space + (this.active ? "A" : "S"));
     }
 
     public Space(Game g, Position pos, int size) 

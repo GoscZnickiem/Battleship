@@ -23,17 +23,31 @@ public class Board {
         }
     }
 
+    public Position getClickedPos()
+    {
+        for (Space[] sp2 : spaces)
+        {
+            for (Space sp : sp2)
+            {
+                if (sp.isClicked())
+                {
+                    Position ans = sp.position();
+                    return new Position((ans.x - position.x) / SPACE_SIZE, (ans.y - position.x) / SPACE_SIZE);
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean correctPos(Position a) { return false; }
  
     public Position convertToBoardPosition(Position mousePosition)
     {
-        Position ans = new Position((mousePosition.x - position.x) / SPACE_SIZE, (mousePosition.x - position.y) / SPACE_SIZE);
+        Position ans = new Position((mousePosition.x - position.x - SPACE_SIZE / 2) / SPACE_SIZE, (mousePosition.x - position.y - SPACE_SIZE / 2) / SPACE_SIZE);
         if (ans.x >= 0 && ans.x < SIZE && ans.y >= 0 && ans.y < SIZE)
             return ans;
         return null;
     }
-
-
 
     public void updateHits(Position pos, ShootingResponse response, Ship ship)
     {

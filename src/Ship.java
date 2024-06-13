@@ -11,6 +11,11 @@ public class Ship
     private ArrayList<Space> spaces;
     private ArrayList<Space> border;
 
+    public void make_invisible()
+    {
+        this.shipButton.visible = false;
+    }
+
     public Ship(Position pos, Orientation ornt, int length, Game g)
     {
         this.shipButton = new Button(g, pos.x, pos.y, length * Board.SPACE_SIZE, Board.SPACE_SIZE, null, null);
@@ -41,18 +46,15 @@ public class Ship
 
     public static ArrayList<Ship> initialize(ArrayList<Ship> arr, Game g)
     {
-        arr.add(new Ship(new Position(100, 30), Orientation.HORIZONTAL, 1, g));
-        arr.add(new Ship(new Position(170, 30), Orientation.HORIZONTAL, 1, g));
-        arr.add(new Ship(new Position(240, 30), Orientation.HORIZONTAL, 1, g));
-        arr.add(new Ship(new Position(310, 30), Orientation.HORIZONTAL, 1, g));
-        
-        arr.add(new Ship(new Position(380, 30), Orientation.HORIZONTAL, 2, g));
-        arr.add(new Ship(new Position(490, 30), Orientation.HORIZONTAL, 2, g));
-        arr.add(new Ship(new Position(600, 30), Orientation.HORIZONTAL, 2, g));
-        arr.add(new Ship(new Position(710, 30), Orientation.HORIZONTAL, 3, g));
-        arr.add(new Ship(new Position(860, 30), Orientation.HORIZONTAL, 3, g));
-        
-        arr.add(new Ship(new Position(1010, 30), Orientation.HORIZONTAL, 4, g));
+        int single_length = 30;
+        int height = 30;
+        int lengths[] = {1,1,1,1,2,2,2,3,3,4};
+        int acc = 100;
+        for (int len : lengths)
+        {
+            arr.add(new Ship(new Position(acc, height), Orientation.HORIZONTAL, len, g));
+            acc += len * single_length + single_length;
+        }
         return arr;
     }
 
@@ -62,7 +64,11 @@ public class Ship
         {
             if (sp.shipButton.isClicked())
             {
-                return sp;
+                if (sp.shipButton.visible)
+                {
+                    sp.shipButton.visible = true;
+                    return sp;
+                }
             }
         }
         return null;
@@ -79,6 +85,19 @@ public class Ship
 		position = pos;
 		shipButton.setPos(pos);
 	}
+
+    public void snap_to_space(Position pos)
+    {
+        if (orientation == Orientation.HORIZONTAL)
+        {
+            pos.x = pos.x + (length - 1) * Board.SPACE_SIZE / 2;
+        }
+        else
+        {
+            pos.y = pos.y + (length - 1) * Board.SPACE_SIZE / 2;
+        }
+        move(pos);
+    }
 
 	public void render(Graphics2D g) {
 		shipButton.render(g);

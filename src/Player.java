@@ -20,18 +20,12 @@ public class Player
 
     // if board == true then on homeBoard
     // if board == false then on ShootingBoard
-    public Position getPosOnBoard(boolean homeBd, Mouse mouse)
+    public Position getPosOnBoard(boolean homeBd)
     {
         Board board = null;
         if (homeBd) board = this.homeBoard;
         else board = this.shootingBoard;
-        Position mouse_pos = mouse.clickedPosition();
-        Position pos = null;
-        if (mouse_pos != null)
-        {
-            pos = board.convertToBoardPosition(mouse_pos); 
-        }
-        return pos;
+        return board.getClickedPos();
     }
 
     public boolean correctShootingPos(Position pos)
@@ -40,25 +34,27 @@ public class Player
         return false;
     }
 
-    public boolean correctShipPos(Position pos, Orientation orientation, int length)
+    public boolean correctShipPos(Position pos, Ship ship)
     {
         if (pos == null) return false;
+        
         Position a = new Position(pos.x, pos.y);
-        boolean cond = orientation == Orientation.HORIZONTAL;
-        for (int i = 0; i < length; i++)
+        boolean cond = ship.orientation == Orientation.HORIZONTAL;
+        for (int i = 0; i < ship.length; i++)
         {
-            if (this.homeBoard.correctPos(a)) return false;
+            if (!this.homeBoard.correctPos(a)) return false;
             if (cond) 
                 a.x += 1;
             else
                 a.y += 1;
         }
+
         return true;
     }
 
-    public void putShip(Position pos, Orientation orientation, Ship ship)
+    public void putShip(Position pos, Ship ship)
     {
-        boolean cond = orientation == Orientation.HORIZONTAL;
+        boolean cond = ship.orientation == Orientation.HORIZONTAL;
         Position a = new Position(pos.x, pos.y);
         for (int i = 0; i < ship.length; i++)
         {
@@ -68,6 +64,8 @@ public class Player
             else
                 a.y += 1;
         }
+        ship.snap_to_space(new Position (this.homeBoard.position.x + pos.x * Board.SPACE_SIZE, this.homeBoard.position.y + pos.y * Board.SPACE_SIZE));
+        ship.make_invisible();
     }
 
     // if board == true then on homeBoard

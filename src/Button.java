@@ -10,6 +10,7 @@ public class Button {
 		height = h;
 		texture = g.getTextureManager().getTexture(tex);
 		hoverTexture = g.getTextureManager().getTexture(texHover);
+		this.visible = true;
 	}
 
 	public boolean isClicked() {
@@ -31,13 +32,14 @@ public class Button {
 	}
 
 	public void render(Graphics2D g) {
+		if(!this.visible) return;
 		if(isHovered()) {
 			drawImage(hoverTexture, g);
 		} else {
 			drawImage(texture, g);
 		}
 
-		g.setColor(new Color(255, 0, 0, 255));
+		g.setColor(new Color(255, 255, 255, 255));
 		g.drawRect(x - width / 2, y - height / 2, width, height);
 	}
 
@@ -70,4 +72,5 @@ public class Button {
 	private BufferedImage texture;
 	private BufferedImage hoverTexture;
 	private Game game;
+	public boolean visible;
 }
