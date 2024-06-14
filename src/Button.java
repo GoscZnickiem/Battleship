@@ -43,8 +43,8 @@ public class Button {
 		g.drawRect(x - width / 2, y - height / 2, width, height);
 	}
 
-	public int getWidth() { return this.width; }
-	public int getHeight() { return this.height; }
+	public int getWidth() { return width; }
+	public int getHeight() { return height; }
 
 	public void setPos(Position pos) {
 		x = pos.x;
