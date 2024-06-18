@@ -53,6 +53,7 @@ public class GameScene implements Scene
 				{
 					done = true;
 					submit.visible = false;
+					return;
 				}
 
 				if (selectedShip == null)
@@ -134,13 +135,14 @@ public class GameScene implements Scene
 		player.render(g);
 
 		submit.render(g);
-
-		if(selectedShip != null)
-			selectedShip.render(g);
-
-		for (Ship ship : ships) {
-			ship.render(g);
+		
+		if (stage == Stage.SETTING)
+		{
+			if(selectedShip != null)
+				selectedShip.render(g);
+			for (Ship ship : ships) {
+				ship.render(g);
+			}
 		}
-
 	}
 }

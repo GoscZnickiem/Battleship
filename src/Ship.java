@@ -46,14 +46,15 @@ public class Ship
 
     public static ArrayList<Ship> initialize(ArrayList<Ship> arr, Game g)
     {
-        int single_length = 30;
-        int height = 30;
+        int single_length = Board.SPACE_SIZE;
+        int pos_x = 100 - single_length;
+        int pos_y = Board.SPACE_SIZE;
         int lengths[] = {1,1,1,1,2,2,2,3,3,4};
-        int acc = 100;
         for (int len : lengths)
         {
-            arr.add(new Ship(new Position(acc, height), Orientation.HORIZONTAL, len, g));
-            acc += len * single_length + single_length;
+            pos_x += len * single_length / 2;
+            arr.add(new Ship(new Position(pos_x, pos_y), Orientation.HORIZONTAL, len, g));
+            pos_x += len * single_length / 2 + single_length / 2;
         }
         return arr;
     }
