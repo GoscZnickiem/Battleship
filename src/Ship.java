@@ -1,8 +1,9 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 
-public class Ship
+public class Ship implements Serializable
 {
     public Position position = new Position(0, 0);  
     public int length;
@@ -22,16 +23,55 @@ public class Ship
         this.length = length;
         this.position = pos;
         this.orientation = ornt;
+        this.spaces = new ArrayList<>();
+        this.border = new ArrayList<>();
     }
 
-    public ArrayList<Space> spaces()
+    // default ship to allow using player.getPosOnBoard without offset because offset is (ship.length - 1) / 2 * Board.SPACE_SIZE so in case of ship.length = 1 it is zero
+    public Ship()
     {
-        return spaces;
+        this.orientation = Orientation.HORIZONTAL;
+        this.length = 1;
+        this.spaces = new ArrayList<>();
+        this.border = new ArrayList<>();
     }
 
-    public ArrayList<Space> border()
+    public ArrayList<Position> spaces()
     {
-        return border;
+        ArrayList<Position> ans = new ArrayList<>();
+        for (Space sp : spaces)
+        {
+            ans.add(sp.boardPosition());
+        }
+        return ans;
+    }
+
+    public ArrayList<Position> border()
+    {
+        ArrayList<Position> ans = new ArrayList<>();
+        for (Space sp : border)
+        {
+            ans.add(sp.boardPosition());
+        }
+        return ans;
+    }
+
+    public void addBorderSpace(Space space)
+    {
+        for (Space sp : spaces)
+        {
+            if (sp == space)
+            {
+                return;
+            }
+        }
+        this.border.add(space);
+    }
+
+    public void addShipSpace(Space space)
+    {
+        while (border.remove(space));
+        spaces.add(space);
     }
 
     public boolean dead()
@@ -47,8 +87,8 @@ public class Ship
     public static ArrayList<Ship> initialize(ArrayList<Ship> arr, Game g)
     {
         int single_length = Board.SPACE_SIZE;
-        int pos_x = 100 - single_length;
-        int pos_y = Board.SPACE_SIZE;
+        int pos_x = 50 - single_length;
+        int pos_y = 580;
         int lengths[] = {1,1,1,1,2,2,2,3,3,4};
         for (int len : lengths)
         {

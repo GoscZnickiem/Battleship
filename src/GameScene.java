@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GameScene implements Scene 
 {
@@ -19,8 +18,8 @@ public class GameScene implements Scene
 
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
-		this.shipsToSet = 10;
-		this.submit = new Button(g, 150, 650, 100, 50, "start_shooting", "t1");
+		this.shipsToSet = 1;
+		this.submit = new Button(g, Game.WIDTH / 2, 640, 100, 50, "start_shooting", "t1");
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();
@@ -65,11 +64,10 @@ public class GameScene implements Scene
 				selectedShip.move(mouse.getPos());
 				if (mouse.getMouseScroll() != 0) selectedShip.rotate();
 
-
-				if (!mouse.isClicked()) return;
-
-				Position chosenPos = player.getPosOnBoard(true);
+				Position chosenPos = player.getPosOnBoard(true, mouse, selectedShip);
 				if (chosenPos == null) return;
+				System.out.println(chosenPos.x);
+				System.out.println(chosenPos.y);
 
 				System.out.println(player.correctShipPos(chosenPos, selectedShip));
 				if (!player.correctShipPos(chosenPos, selectedShip)) return;
@@ -82,11 +80,10 @@ public class GameScene implements Scene
 			}
 			case SHOOTING:
 			{
-				System.out.println("SHOOTING");
 				if (activeTurn)
 				{
 					// getting position for the shoot
-					Position chosenPos = player.getPosOnBoard(false);
+					Position chosenPos = player.getPosOnBoard(false, mouse, new Ship());
 					if (!player.correctShootingPos(chosenPos)) return;
 
 					// sending postion to the other player
@@ -96,10 +93,12 @@ public class GameScene implements Scene
 					// waiting for the response
 					GamePackage receivedPackage = networkDevice.receivePackage();
 					ShootingResponse receivedResponse = receivedPackage.shootingStatus;
-					Ship ship = receivedPackage.ship;
+					ArrayList<Position> shipSpaces = receivedPackage.shipSpaces;
+					ArrayList<Position> borderSpaces = receivedPackage.borderSpaces;
+
 
 					// updating the ShootingBoard to reflect whether the shot is a miss, a wound or a kill
-					player.updateHitsOnPlayerBoard(false, chosenPos, receivedResponse, ship);
+					player.updateHitsOnPlayerBoard(false, chosenPos, receivedResponse, shipSpaces, borderSpaces);
 
 			
 					// sending package to let the other player know that it is their turn
@@ -115,7 +114,8 @@ public class GameScene implements Scene
 					// checking whether a shot is a kill, a wound or a miss
 					ShootingResponse response = player.getShootingResponse(receivedPosition);
 					Ship ship = player.getShip(receivedPosition);
-					player.updateHitsOnPlayerBoard(true, receivedPosition, response, ship);
+					if (ship == null) ship = new Ship();
+					player.updateHitsOnPlayerBoard(true, receivedPosition, response, ship.spaces(), ship.border());
 
 					// sending the information to the other player
 					GamePackage messagePackage = new GamePackage(response, ship);
@@ -138,6 +138,8 @@ public class GameScene implements Scene
 		
 		if (stage == Stage.SETTING)
 		{
+
+
 			if(selectedShip != null)
 				selectedShip.render(g);
 			for (Ship ship : ships) {

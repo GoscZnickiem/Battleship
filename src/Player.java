@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class Player 
 {
@@ -20,12 +21,23 @@ public class Player
 
     // if board == true then on homeBoard
     // if board == false then on ShootingBoard
-    public Position getPosOnBoard(boolean homeBd)
+    public Position getPosOnBoard(boolean homeBd, Mouse mouse, Ship ship)
     {
         Board board = null;
         if (homeBd) board = this.homeBoard;
         else board = this.shootingBoard;
-        return board.getClickedPos();
+        Position clickedPos = mouse.clickedPosition();
+        if (clickedPos == null) return null;
+        int mult = ship.length - 1;
+        if (ship.orientation == Orientation.HORIZONTAL)
+        {
+            clickedPos.x -= mult * Board.SPACE_SIZE / 2;
+        }
+        else 
+        {
+            clickedPos.y -= mult * Board.SPACE_SIZE / 2;
+        }
+        return board.convertToBoardPosition(clickedPos);
     }
 
     public boolean correctShootingPos(Position pos)
@@ -70,18 +82,24 @@ public class Player
 
     // if board == true then on homeBoard
     // if board == false then on ShootingBoard
-    public void updateHitsOnPlayerBoard(boolean homeBd, Position pos, ShootingResponse response, Ship ship)
+    public void updateHitsOnPlayerBoard(boolean homeBd, Position pos, ShootingResponse response, ArrayList<Position> shipSpaces, ArrayList<Position> borderSpaces)
     {
         Board board = null;
         if (homeBd) 
             board = this.homeBoard;
         else 
             board = this.shootingBoard;
-        board.updateHits(pos, response, ship);
+        board.updateHits(pos, response, shipSpaces, borderSpaces);
     }
 
     public ShootingResponse getShootingResponse(Position pos)
     {
+        System.out.println(pos.x);
+        System.out.println(pos.y);
+        System.out.println(homeBoard.hasShip(pos));
+        System.out.println(this.homeBoard.killedShip(pos));
+
+
         if (this.homeBoard.hasShip(pos))
         {
             if (this.homeBoard.killedShip(pos))

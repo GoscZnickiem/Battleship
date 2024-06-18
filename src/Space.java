@@ -16,7 +16,13 @@ public class Space {
     private HitValue value;
     private Ship ship;
     private Position pos;
+    private Position boardPos;
 	private Button button;
+
+    public Position boardPosition()
+    {
+        return boardPos;
+    }
 
     public boolean isClicked()
     {
@@ -35,9 +41,10 @@ public class Space {
         this.button.setTex(ship_space, ship_space + (this.active ? "A" : "S"));
     }
 
-    public Space(Game g, Position pos, int size) 
+    public Space(Game g, Position boardPos, Position pos, int size) 
     { 
         this.active = true;
+        this.boardPos = boardPos;
 		this.pos = pos;
         hasShip = false;
         value = HitValue.NONE;

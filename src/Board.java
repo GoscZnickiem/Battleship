@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class Board {
 
@@ -18,38 +19,24 @@ public class Board {
         {
             for (int j = 0; j < SIZE; j++)
             {
-                spaces[i][j] = new Space(g, new Position(position.x + i * SPACE_SIZE, position.y + j * SPACE_SIZE), SPACE_SIZE);
+                spaces[i][j] = new Space(g, new Position(i, j), new Position(position.x + i * SPACE_SIZE, position.y + j * SPACE_SIZE), SPACE_SIZE);
             }
         }
     }
 
-    public Position getClickedPos()
-    {
-        for (Space[] sp2 : spaces)
-        {
-            for (Space sp : sp2)
-            {
-                if (sp.isClicked())
-                {
-                    Position ans = sp.position();
-                    return new Position((ans.x - position.x) / SPACE_SIZE, (ans.y - position.x) / SPACE_SIZE);
-                }
-            }
-        }
-        return null;
-    }
+
 
     public boolean correctPos(Position a) { return false; }
  
-    public Position convertToBoardPosition(Position mousePosition)
+    public Position convertToBoardPosition(Position pos)
     {
-        Position ans = new Position((mousePosition.x - position.x - SPACE_SIZE / 2) / SPACE_SIZE, (mousePosition.x - position.y - SPACE_SIZE / 2) / SPACE_SIZE);
+        Position ans = new Position((pos.x - position.x + SPACE_SIZE / 2) / SPACE_SIZE, (pos.y - position.y + SPACE_SIZE / 2) / SPACE_SIZE);
         if (ans.x >= 0 && ans.x < SIZE && ans.y >= 0 && ans.y < SIZE)
             return ans;
         return null;
     }
 
-    public void updateHits(Position pos, ShootingResponse response, Ship ship)
+    public void updateHits(Position pos, ShootingResponse response, ArrayList<Position> shipSpaces, ArrayList<Position> borderSpaces)
     {
         switch (response) {
             case MISSED:
@@ -59,24 +46,28 @@ public class Board {
                 this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
                 break;
             case KILLED:
-                this.markKilledShip(ship);
+                this.markKilledShip(shipSpaces, borderSpaces);
                 break;
         }
     }
     
-    public void markKilledShip(Ship ship)
+    public void markKilledShip(ArrayList<Position> shipSpaces, ArrayList<Position> borderSpaces)
     {
-        // has to do it this way so that if a ship is an object sent from a different computer it still works
-        for (Space sp : ship.spaces()) 
+        System.out.println("----");
+        for (Position pos : shipSpaces) 
         {
-            Position pos = sp.position();
+            System.out.println(pos.x);
+            System.out.println(pos.y);
             this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
         }
-        for (Space sp : ship.border())
+        System.out.println("----");
+        for (Position pos : borderSpaces)
         {
-            Position pos = sp.position();
+            System.out.println(pos.x);
+            System.out.println(pos.y);
             this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
         }
+        System.out.println("----");
     }
 
 	public void render(Graphics2D g) {

@@ -4,7 +4,7 @@ public class ShootingBoard extends Board {
 
     public ShootingBoard(Game g)
     {
-        super(g, Game.WIDTH - 100 - SIZE * SPACE_SIZE - SPACE_SIZE / 2, 100);
+        super(g, Game.WIDTH - 100 - SIZE * SPACE_SIZE - SPACE_SIZE / 2, 70);
     }
 
     // returns true if a space is shootable, false otherwise
