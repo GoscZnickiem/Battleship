@@ -24,7 +24,7 @@ public class Space {
     {
         this.hasShip = false;
         this.ship = null;
-        this.button.setTex(hidden_water, hidden_water + 'A');
+        this.button.setTex(hidden_water, hidden_water + 'S');
     }
 
     public Position boardPosition() {
