@@ -118,8 +118,8 @@ public class Player
         return this.homeBoard.getShip(pos);
     }
 
-	public void render(Graphics2D g) {
-		shootingBoard.render(g);
-		homeBoard.render(g);
+	public void render(Graphics2D g, GameScene.Stage stage) {
+		shootingBoard.render(g, stage);
+		homeBoard.render(g, stage);
 	}
 }

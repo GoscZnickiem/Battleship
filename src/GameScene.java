@@ -11,15 +11,15 @@ public class GameScene implements Scene
 	private Stage stage;
 	private boolean done;
 	private Ship selectedShip;
-	private int shipsToSet = 10;
-	private enum Stage { SHOOTING, SETTING }
+	private int shipsToSet = 1;
+	public static enum Stage { SHOOTING, SETTING }
 	private Button submit;
 	private ArrayList<Ship> ships;
 
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
-		this.shipsToSet = 10;
-		this.submit = new Button(g, Game.WIDTH / 2, 640, 100, 50, "start_shooting", "t1");
+		this.shipsToSet = 1;
+		this.submit = new Button(g, Game.WIDTH / 2, 50, 200, 48, "start_shooting", "t1");
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();
@@ -143,12 +143,65 @@ public class GameScene implements Scene
 
 	@Override
 	public void render(Graphics2D g) {
-		player.render(g);
+		player.render(g, stage);
 
-		submit.render(g);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.BOLD, 25));
+		FontMetrics fm = g.getFontMetrics();
+		int textHeight = fm.getHeight();
+
+		switch (stage)
+		{
+			case SETTING:
+				if(selectedShip != null)
+					selectedShip.render(g);
+
+				if (shipsToSet > 0)
+				{
+					String text[] = {"Set your ships on your Home Board", "Click to select the ship, scroll to rotate, and click on the chosen space"};
+					int pos[] = {30, 60};
+
+					
+					for (int i = 0; i < 2; i++)
+					{
+						int textWidth = fm.stringWidth(text[i]);
+						int X = (Game.WIDTH / 2 - textWidth / 2);
+						int Y = (pos[i] - textHeight / 2) + fm.getAscent();
+						g.drawString(text[i], X, Y);
+					}
 		
-		if(selectedShip != null)
-			selectedShip.render(g);
+				}
+		
+				if (shipsToSet <= 0)
+				{
+					submit.render(g);
+				}
+
+				break;
+			case SHOOTING:
+
+				if (activeTurn)
+				{
+					String text = "Your Turn! Choose the space on the Shooting Board to shoot";
+					int textWidth = fm.stringWidth(text);
+					int X = (Game.WIDTH / 2 - textWidth / 2);
+					int Y =	(50 - textHeight / 2) + fm.getAscent();
+					g.drawString(text, X, Y);
+				}
+				else
+				{
+					String text = "Your Opponenent's turn! Wait for them to make their shot";
+					int textWidth = fm.stringWidth(text);
+					int X = (Game.WIDTH / 2 - textWidth / 2);
+					int Y =	(50 - textHeight / 2) + fm.getAscent();
+					g.drawString(text, X, Y);
+				}
+
+				
+				break;
+		}
+		
+
 		for (Ship ship : ships) {
 			ship.render(g);
 		}

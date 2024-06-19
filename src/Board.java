@@ -1,5 +1,8 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.awt.*;
+import javax.swing.*;
+
 
 public class Board {
 
@@ -8,11 +11,18 @@ public class Board {
     public static final int SPACE_SIZE = 48; // size of single square on a board
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
     public Position position;
+    private int shipsNumber;
+    private Game game;
+
+    public String name;
 
     protected Space spaces[][];
 
-    public Board(Game g, int x, int y)
+    public Board(Game g, int x, int y, String n)
     {
+        this.game = g;
+        this.name = n;
+        this.shipsNumber = 20;
         this.position = new Position(x, y);
         this.spaces = new Space[10][10];
         for (int i = 0; i < SIZE; i++)
@@ -22,6 +32,7 @@ public class Board {
                 spaces[i][j] = new Space(g, new Position(i, j), new Position(position.x + i * SPACE_SIZE, position.y + j * SPACE_SIZE), SPACE_SIZE);
             }
         }
+
     }
 
 
@@ -43,9 +54,11 @@ public class Board {
                 this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
                 break;
             case WOUNDED:
+                shipsNumber -= 1;
                 this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
                 break;
             case KILLED:
+                shipsNumber -= 1;
                 this.markKilledShip(shipSpaces, borderSpaces);
                 break;
         }
@@ -70,11 +83,32 @@ public class Board {
         System.out.println("----");
     }
 
-	public void render(Graphics2D g) {
-		for (Space[] spaces2 : spaces) {
-			for (Space space : spaces2) {
-				space.render(g);
+	public void render(Graphics2D g, GameScene.Stage stage) {
+        
+        for (Space[] spaces2 : spaces) {
+            for (Space space : spaces2) {
+                space.render(g);
 			}
 		}
+    
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        FontMetrics fm = g.getFontMetrics();
+        int textHeight = fm.getHeight();
+
+        if (stage == GameScene.Stage.SHOOTING)
+        {
+            String text = "Left ships pieces:  " + shipsNumber;
+            int textWidth = fm.stringWidth(text);
+            int X = (position.x - Board.SPACE_SIZE / 2 + Board.SIZE * Board.SPACE_SIZE / 2 - textWidth / 2);
+            int Y = (position.y + Board.SIZE * Board.SPACE_SIZE) + fm.getAscent();
+            g.drawString(text, X, Y);
+        }
+
+        int textWidth = fm.stringWidth(name);
+        int X = (position.x - Board.SPACE_SIZE / 2 + Board.SIZE * Board.SPACE_SIZE / 2 - textWidth / 2);
+        int Y = (position.y - Board.SPACE_SIZE / 2 - 3 * textHeight / 2) + fm.getAscent();
+        g.drawString(name, X, Y);
+
 	}
 }

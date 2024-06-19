@@ -89,9 +89,11 @@ public class Ship implements Serializable
     public static ArrayList<Ship> initialize(ArrayList<Ship> arr, Game g)
     {
         int single_length = Board.SPACE_SIZE;
-        int pos_x = 50 - single_length;
-        int pos_y = 580;
         int lengths[] = {1,1,1,1,2,2,2,3,3,4};
+        int sum = (lengths.length - 1) * single_length / 2;
+        for (int l : lengths) sum += l * single_length;
+        int pos_x = (Game.WIDTH - sum) / 2;
+        int pos_y = 660;
         for (int len : lengths)
         {
             pos_x += len * single_length / 2;
