@@ -1,7 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
-
 public class Button {
 	public Button(Game g, int x, int y, int w, int h, String tex, String texHover) {
 		game = g;
@@ -40,8 +39,8 @@ public class Button {
 			drawImage(texture, g);
 		}
 
-		g.setColor(new Color(255, 255, 255, 255));
-		g.drawRect(x - width / 2, y - height / 2, width, height);
+		// g.setColor(new Color(255, 255, 255, 255));
+		// g.drawRect(x - width / 2, y - height / 2, width, height);
 	}
 
 	public int getWidth() { return width; }

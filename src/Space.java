@@ -18,6 +18,7 @@ public class Space {
     private Position pos;
     private Position boardPos;
 	private Button button;
+	private AnimatedSprite texture;
 
     public Position boardPosition()
     {
@@ -48,7 +49,8 @@ public class Space {
 		this.pos = pos;
         hasShip = false;
         value = HitValue.NONE;
-		button = new Button(g, pos.x, pos.y, size, size, hidden_water, hidden_water + (this.active ? "A" : "S"));
+		button = new Button(g, pos.x, pos.y, size, size, "water", "waterS");
+		texture = new AnimatedSprite(g, pos.x, pos.y, size, size, "test", 60, 2);
     }
 
     public Position position()
@@ -92,6 +94,7 @@ public class Space {
     }
 
 	public void render(Graphics2D g) {
+		texture.render(g);
 		button.render(g);
 	}
 }
