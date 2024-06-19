@@ -1,5 +1,5 @@
 import javax.swing.*;
-
+import java.awt.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -10,11 +10,12 @@ public class Main {
 				Game game = new Game(frame);
 				frame.setTitle("BattleShip");
 				frame.getContentPane().add(game);
-				frame.setSize(Game.WIDTH, Game.HEIGHT);
-				frame.setLocationRelativeTo(null);
+				game.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setResizable(false);
 				frame.setVisible(true);
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setResizable(false);
 				game.requestFocus();
 			}
 		});
