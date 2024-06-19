@@ -18,7 +18,7 @@ public class GameScene implements Scene
 
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
-		this.shipsToSet = 1;
+		this.shipsToSet = 10;
 		this.submit = new Button(g, Game.WIDTH / 2, 640, 100, 50, "start_shooting", "t1");
 		this.stage = Stage.SETTING;
 		this.game = g;
@@ -52,6 +52,11 @@ public class GameScene implements Scene
 				{
 					done = true;
 					submit.visible = false;
+					for (Ship ship : ships)
+					{
+						if (!ship.onBoard)
+							ship.make_invisible();
+					}
 					return;
 				}
 
@@ -59,6 +64,12 @@ public class GameScene implements Scene
 				{
 					selectedShip = Ship.getSelectedShip(ships);
 					return;
+				}
+
+				if (selectedShip.onBoard) 
+				{
+					selectedShip.removeShip();
+					shipsToSet += 1;
 				}
 
 				selectedShip.move(mouse.getPos());
@@ -73,8 +84,8 @@ public class GameScene implements Scene
 				if (!player.correctShipPos(chosenPos, selectedShip)) return;
 
 				player.putShip(chosenPos, selectedShip);
-				selectedShip = null;
 				shipsToSet -= 1;
+				selectedShip = null;
 
 				break;
 			}
@@ -136,15 +147,10 @@ public class GameScene implements Scene
 
 		submit.render(g);
 		
-		if (stage == Stage.SETTING)
-		{
-
-
-			if(selectedShip != null)
-				selectedShip.render(g);
-			for (Ship ship : ships) {
-				ship.render(g);
-			}
+		if(selectedShip != null)
+			selectedShip.render(g);
+		for (Ship ship : ships) {
+			ship.render(g);
 		}
 	}
 }

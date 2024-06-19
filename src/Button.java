@@ -33,7 +33,7 @@ public class Button {
 	}
 
 	public void render(Graphics2D g) {
-		if(!this.visible) return;
+		if (!this.visible) return;
 		if(isHovered()) {
 			drawImage(hoverTexture, g);
 		} else {
