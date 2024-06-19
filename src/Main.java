@@ -12,10 +12,10 @@ public class Main {
 				frame.getContentPane().add(game);
 				game.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setVisible(true);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
 				frame.setResizable(false);
+				frame.pack();
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
 				game.requestFocus();
 			}
 		});

@@ -55,9 +55,6 @@ public class Game extends JPanel {
 	}
 
 	private void render(Graphics2D g) {
-		g.setColor(new Color(0, 0, 0, 255));
-		g.drawRect(0, 0, Game.WIDTH, Game.HEIGHT);
-
 		currentScene.render(g);
 	}
 
