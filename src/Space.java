@@ -74,6 +74,7 @@ public class Space {
 
             case HIT:
                 this.button.setTex(exploded_water, exploded_water + 'A');
+				if(ship != null) this.ship.shot(this);
                 break;
         }
         this.value = value;
