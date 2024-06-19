@@ -102,13 +102,14 @@ public class Ship
         return true;
     }
 
-	// public void shot(Space sp) {
-	// 	for(int i = 0; i < length; i++) {
-	// 		if(sp == spaces()) {
-	//
-	// 		}
-	// 	}
-	// }
+	public void shot(Space sp) {
+		for(int i = 0; i < length; i++) {
+			if(sp == spaces.get(i)) {
+				String tex = "shipD_" + length + (orientation == Orientation.VERTICAL ? "V_" : "H_") + i;
+				segments.get(i).setAnimation(tex, 1, 1);
+			}
+		}
+	}
 
     public static ArrayList<Ship> initialize(ArrayList<Ship> arr, Game g)
     {
