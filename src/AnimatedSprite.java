@@ -30,6 +30,36 @@ public class AnimatedSprite {
 		}
 	}
 
+	public void setAnimation(String name, int speed, int frames) {
+		ticksPerFrame = speed;
+		this.frames = frames;
+		time = 0;
+		frame = 0;
+
+		textures = new ArrayList<>();
+		for(int i = 0; i < frames; i++) {
+			textures.add(game.getTextureManager().getTexture(name + "_f" + i));
+		}
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setPos(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public void setSize(int w, int h) {
+		width = w;
+		height = h;
+	}
+
 	private void drawImage(BufferedImage i, Graphics2D g) {
 		g.drawImage(i, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, i.getWidth(), i.getHeight(), null);
 	}
