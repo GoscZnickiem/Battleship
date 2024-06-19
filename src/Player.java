@@ -77,7 +77,7 @@ public class Player
                 a.y += 1;
         }
         ship.snap_to_space(new Position (this.homeBoard.position.x + pos.x * Board.SPACE_SIZE, this.homeBoard.position.y + pos.y * Board.SPACE_SIZE));
-        ship.make_invisible();
+        ship.onBoard = true;
     }
 
     // if board == true then on homeBoard

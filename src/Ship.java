@@ -11,6 +11,7 @@ public class Ship implements Serializable
     private Button shipButton;
     private ArrayList<Space> spaces;
     private ArrayList<Space> border;
+    public boolean onBoard;
 
     public void make_invisible()
     {
@@ -25,6 +26,7 @@ public class Ship implements Serializable
         this.orientation = ornt;
         this.spaces = new ArrayList<>();
         this.border = new ArrayList<>();
+        this.onBoard = false;
     }
 
     // default ship to allow using player.getPosOnBoard without offset because offset is (ship.length - 1) / 2 * Board.SPACE_SIZE so in case of ship.length = 1 it is zero
@@ -105,11 +107,7 @@ public class Ship implements Serializable
         {
             if (sp.shipButton.isClicked())
             {
-                if (sp.shipButton.visible)
-                {
-                    sp.shipButton.visible = true;
-                    return sp;
-                }
+                return sp;
             }
         }
         return null;
@@ -144,4 +142,15 @@ public class Ship implements Serializable
 		shipButton.render(g);
 	}
 
+    public void removeShip()
+    {
+        if (!this.onBoard) return;
+        for (Space sp : spaces)
+        {
+            sp.removeShip();
+        }
+        this.spaces.clear();
+        this.border.clear();
+        this.onBoard = false;
+    }
 }
