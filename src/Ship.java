@@ -41,7 +41,8 @@ public class Ship
 				y = pos.y + i * Board.SPACE_SIZE - (length - 1) * Board.SPACE_SIZE / 2;
 				tex = "ship_" + length + "V_" + i;
 			}
-			segments.add(new AnimatedSprite(game, x, y, Board.SPACE_SIZE, Board.SPACE_SIZE, tex, 1, 1));
+			segments.add(new AnimatedSprite(game, x, y, Board.SPACE_SIZE, Board.SPACE_SIZE, "air", 1, 1));
+			segments.get(i).setBackground(tex);
 		}
     }
 
@@ -105,8 +106,8 @@ public class Ship
 	public void shot(Space sp) {
 		for(int i = 0; i < length; i++) {
 			if(sp == spaces.get(i)) {
-				String tex = "shipD_" + length + (orientation == Orientation.VERTICAL ? "V_" : "H_") + i;
-				segments.get(i).setAnimation(tex, 1, 1);
+				segments.get(i).setAnimation("smoke", 15, 3);
+				segments.get(i).setBackground("shipD_" + length + (orientation == Orientation.VERTICAL ? "V_" : "H_") + i);
 			}
 		}
 	}
@@ -158,7 +159,7 @@ public class Ship
 				tex = "ship_" + length + "V_" + i;
 			}
 			segments.get(i).setPos(x, y);
-			segments.get(i).setAnimation(tex, 1, 1);
+			segments.get(i).setBackground(tex);
 		}
     }
 

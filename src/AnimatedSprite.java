@@ -6,6 +6,8 @@ public class AnimatedSprite {
 
 	private Game game;
 	private ArrayList<BufferedImage> textures;
+	private BufferedImage backgroundTexture;
+	private BufferedImage foregroundTexture;
 	private int ticksPerFrame;
 	private int frames;
 	private int frame = 0;
@@ -28,6 +30,17 @@ public class AnimatedSprite {
 		for(int i = 0; i < frames; i++) {
 			textures.add(game.getTextureManager().getTexture(name + "_f" + i));
 		}
+
+		backgroundTexture = game.getTextureManager().getTexture("air");
+		foregroundTexture = game.getTextureManager().getTexture("air");
+	}
+
+	public void setBackground(String name) {
+		backgroundTexture = game.getTextureManager().getTexture(name);
+	}
+
+	public void setForeground(String name) {
+		foregroundTexture = game.getTextureManager().getTexture(name);
 	}
 
 	public void setAnimation(String name, int speed, int frames) {
@@ -65,7 +78,9 @@ public class AnimatedSprite {
 	}
 
 	public void render(Graphics2D g) {
+		drawImage(backgroundTexture, g);
 		drawImage(textures.get(frame), g);
+		drawImage(foregroundTexture, g);
 		
 		time += 1;
 		if (time == ticksPerFrame) {

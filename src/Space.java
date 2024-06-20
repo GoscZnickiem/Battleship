@@ -7,10 +7,12 @@ public class Space {
         NONE
     };
 
-    public static final String hidden_water = "water";
-    public static final String empty_water = "empty_water";
-    public static final String exploded_water = "exploded_water";
-    public static final String ship_space = "ship_space";
+    // public static final String hidden_water = "water";
+    // public static final String empty_water = "empty_water";
+    // public static final String exploded_water = "exploded_water";
+    // public static final String ship_space = "ship_space";
+    public static final String highlight = "highlight";
+    public static final String empty = "border";
 
     public boolean hasShip;
     private HitValue value;
@@ -24,7 +26,7 @@ public class Space {
     {
         this.hasShip = false;
         this.ship = null;
-        this.button.setTex(hidden_water, hidden_water + 'S');
+        this.button.setTex(empty, highlight);
     }
 
     public Position boardPosition() {
@@ -42,7 +44,7 @@ public class Space {
     public void addShip(Ship ship) {
         this.hasShip = true;
         this.ship = ship;
-        this.button.setTex(ship_space, ship_space + 'A');
+        this.button.setTex(highlight);
     }
 
     public Space(Game g, Position boardPos, Position pos, int size) {
@@ -50,8 +52,8 @@ public class Space {
         this.pos = pos;
         hasShip = false;
         value = HitValue.NONE;
-		button = new Button(g, pos.x, pos.y, size, size, hidden_water, hidden_water + 'S');
-		texture = new AnimatedSprite(g, pos.x, pos.y, size, size, "test", 60, 2);
+		button = new Button(g, pos.x, pos.y, size, size, empty, highlight);
+		texture = new AnimatedSprite(g, pos.x, pos.y, size, size, "water", 60, 10);
     }
 
     public Position position() {
@@ -62,18 +64,20 @@ public class Space {
         switch (value) {
             case NONE:
                 if (this.hasShip) {
-                    this.button.setTex(ship_space, ship_space + 'A');
+                    // this.button.setTex(ship_space, ship_space + 'A');
                 } else {
-                    this.button.setTex(hidden_water, hidden_water + 'A');
+                    // this.button.setTex(hidden_water, hidden_water + 'A');
                 }
                 break;
 
             case MISS:
-                this.button.setTex(empty_water, empty_water + 'A');
+                // this.button.setTex(empty_water, empty_water + 'A');
+				texture.setForeground(highlight);
                 break;
 
             case HIT:
-                this.button.setTex(exploded_water, exploded_water + 'A');
+                // this.button.setTex(exploded_water, exploded_water + 'A');
+				texture.setForeground("explode");
 				if(ship != null) this.ship.shot(this);
                 break;
         }
