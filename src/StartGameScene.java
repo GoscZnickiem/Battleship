@@ -20,7 +20,7 @@ public class StartGameScene implements Scene {
 	public void update() {
 		if(back.isClicked()) {
 			netDevice.disconnect();
-			game.changeScene(new MenuScene(game));
+			game.changeScene(new TransitionScene(game, this, new MenuScene(game)));
 		} else if(connect.isClicked()) {
 			netDevice.connect();
 		}
@@ -28,7 +28,7 @@ public class StartGameScene implements Scene {
 		if(netDevice.connected()) {
 			boolean myTurn = true;
 			netDevice.sendPackage(new GamePackage(!myTurn));
-			game.changeScene(new GameScene(game, "Stefan", myTurn, netDevice));
+			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Stefan", myTurn, netDevice)));
 		}
 
 	}

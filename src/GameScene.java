@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GameScene implements Scene 
-{
+public class GameScene implements Scene {
+
 	private boolean activeTurn;
 	private NetworkDevice networkDevice;
 	private Player player;

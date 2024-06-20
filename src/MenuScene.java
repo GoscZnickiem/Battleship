@@ -15,9 +15,9 @@ public class MenuScene implements Scene
 		if(quitButton.isClicked()) {
 			game.exit();
 		} else if(startButton.isClicked()) {
-			game.changeScene(new StartGameScene(game));
+			game.changeScene(new TransitionScene(game, this, new StartGameScene(game)));
 		} else if(joinButton.isClicked()) {
-			game.changeScene(new JoinGameScene(game));
+			game.changeScene(new TransitionScene(game, this, new JoinGameScene(game)));
 		}
 	}
 
@@ -32,8 +32,6 @@ public class MenuScene implements Scene
         int centerX = (Game.WIDTH - textWidth) / 2;
         int centerY = (Game.HEIGHT - textHeight) / 3 + fm.getAscent();
         g.drawString(text, centerX, centerY);
-
-		g.drawImage(game.getTextureManager().getTexture("test"), 100, 200, null);
 
 		quitButton.render(g);
 		startButton.render(g);

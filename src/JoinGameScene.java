@@ -17,7 +17,7 @@ public class JoinGameScene implements Scene {
 	public void update() {
 		if(back.isClicked()) {
 			netDevice.disconnect();
-			game.changeScene(new MenuScene(game));
+			game.changeScene(new TransitionScene(game, this, new MenuScene(game)));
 		} else if(connect.isClicked()) {
 			netDevice.connect();
 		} else if(setIP.isClicked()) {
@@ -30,7 +30,7 @@ public class JoinGameScene implements Scene {
 
 		if(netDevice.connected()) {
 			GamePackage gp = netDevice.receivePackage();
-			game.changeScene(new GameScene(game, "Mariusz", gp.done, netDevice));
+			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Mariusz", gp.done, netDevice)));
 		}
 	}
 
