@@ -75,6 +75,14 @@ public class GameScene implements Scene {
 				selectedShip.move(mouse.getPos());
 				if (mouse.getMouseScroll() != 0) selectedShip.rotate();
 
+				if (mouse.isRightClicked())
+				{
+					selectedShip.revertToDefault();
+					selectedShip = null;
+					return;
+				}
+
+
 				Position chosenPos = player.getPosOnBoard(true, mouse, selectedShip);
 				if (chosenPos == null) return;
 				System.out.println(chosenPos.x);

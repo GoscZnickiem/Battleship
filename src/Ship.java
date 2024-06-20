@@ -1,12 +1,11 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
-import java.awt.*;
 
 public class Ship
 {
 	private Game game;
     public Position position = new Position(0, 0);  
+    private Position defaultPosition = new Position(0, 0);
     public int length;
     public Orientation orientation;
     private Button shipButton;
@@ -19,11 +18,19 @@ public class Ship
         this.shipButton.visible = false;
     }
 
+    public void revertToDefault()
+    {
+        this.move(defaultPosition);
+        if (this.orientation == Orientation.VERTICAL) this.rotate();
+        this.onBoard = false;
+    }
+
     public Ship(Position pos, Orientation ornt, int length, Game g) {
 		game = g;
         this.shipButton = new Button(game, pos.x, pos.y, length * Board.SPACE_SIZE, Board.SPACE_SIZE, null, null);
         this.length = length;
         this.position = pos;
+        this.defaultPosition = pos;
         this.orientation = ornt;
         this.spaces = new ArrayList<>();
         this.segments = new ArrayList<>();

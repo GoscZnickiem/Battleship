@@ -1,7 +1,6 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.awt.*;
-import javax.swing.*;
 
 
 public class Board {
@@ -12,7 +11,6 @@ public class Board {
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
     public Position position;
     private int shipsNumber;
-    private Game game;
 
     public String name;
 
@@ -20,7 +18,6 @@ public class Board {
 
     public Board(Game g, int x, int y, String n)
     {
-        this.game = g;
         this.name = n;
         this.shipsNumber = 20;
         this.position = new Position(x, y);
