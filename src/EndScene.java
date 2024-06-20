@@ -29,7 +29,7 @@ public class EndScene implements Scene {
 	{
 		if (menuButton.isClicked())
         {
-            game.changeScene(new MenuScene(game));
+            game.changeScene(new TransitionScene(game, this, new MenuScene(game)));
         }
 	}
 

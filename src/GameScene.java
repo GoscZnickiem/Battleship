@@ -97,13 +97,13 @@ public class GameScene implements Scene {
 				{
 					
 					networkDevice.disconnect();
-					game.changeScene(new EndScene(game, true));
+					game.changeScene(new TransitionScene(game, this, new EndScene(game, true)));
 					return;
 				}
 				if (player.hasLost())
 				{
 					networkDevice.disconnect();
-					game.changeScene(new EndScene(game, false));
+					game.changeScene(new TransitionScene(game, this, new EndScene(game, false)));
 					return;
 				}
 				if (activeTurn)
