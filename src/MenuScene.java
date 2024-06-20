@@ -8,6 +8,8 @@ public class MenuScene implements Scene
 		quitButton = new Button(game, Game.WIDTH / 2, 600, 160, 80, "quitgame_button", "quitgame_buttonA");
 		joinButton = new Button(game, Game.WIDTH / 2, 500, 160, 80, "joingame_button", "joingame_buttonA");
 		startButton = new Button(game, Game.WIDTH / 2, 400, 160, 80, "hostgame_button", "hostgame_buttonA");
+		logo = new AnimatedSprite(game, Game.WIDTH / 2, 150, 1200, 200, "air", 1, 1);
+		logo.setForeground("logo");
 	}
 
 	@Override
@@ -53,10 +55,12 @@ public class MenuScene implements Scene
 		quitButton.render(g);
 		startButton.render(g);
 		joinButton.render(g);
+		logo.render(g);
 	}
 
 	private Button quitButton;
 	private Button startButton;
 	private Button joinButton;
+	private AnimatedSprite logo;
 	private Game game;
 }

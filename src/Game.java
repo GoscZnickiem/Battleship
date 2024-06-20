@@ -2,6 +2,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -20,6 +21,9 @@ public class Game extends JPanel {
 
 		currentScene = new MenuScene(this);
 		this.frame = frame;
+
+		System.out.println("aaa");
+		background = texMan.getTexture("bg");
 
 		loop = new Timer();
 		loop.scheduleAtFixedRate(new TimerTask() {
@@ -54,6 +58,7 @@ public class Game extends JPanel {
 	}
 
 	private void render(Graphics2D g) {
+		g.drawImage(background, 0, 0, WIDTH, HEIGHT, 0, 0, background.getWidth(), background.getHeight(), null);
 		currentScene.render(g);
 	}
 
@@ -70,6 +75,7 @@ public class Game extends JPanel {
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	private Scene currentScene;
+	private BufferedImage background;
 	private Timer loop;
 	private TextureManager texMan;
 	private Mouse mouse;
