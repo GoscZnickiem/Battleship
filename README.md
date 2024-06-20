@@ -22,3 +22,10 @@ Można też od razu zbudować i uruchomić projekt skryptem (Który również na
 ## Dokumentacja
 
 [Dokumentacja](DOCS.md)
+
+## Autorzy
+
+Michał Szwejda (MichalSzwejda)
+
+Maciej Zgierski (GoscZnickiem)
+
