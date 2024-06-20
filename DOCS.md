@@ -31,4 +31,54 @@ oraz udostępnianie jako BufferedImage.
 
 ## AnimatedSprite
 
-Klasa reprezentująca obiekty wyświetlane z pewną animacją. 
+Klasa reprezentująca animowane obiekty do wyświetlenia w oknie. Klasa wspiera: animacje o różnej 
+liczbie klatek, różnej prędkości, opcję wyświetlania tekstury w tle oraz opcji nałożenia tekstury na wierzch. 
+Technicznie rzecz biorąc przy pomocy tej klasy można równierz tworzyć statycznie renderowane obiekty.
+
+## Button
+
+Klasa reprezentująca przycisk. Posiada podstawową funkcjonalność przycisku - pozwala sprawdzić np. czy przycisk jest
+wciśnięty - oraz podstawową grafikę w postaci wyświetlania dwóch tekstur: gdy kursor jest nad przyciskiem oraz gdy nie jest.
+
+## NetworkDevice
+
+Klasa abstrakcyjna stanowiąca interfejs do posługiwania się gniazdami sieciowymi - nawiązywania połączenia, kończenia połączenia,
+wysyłania oraz odbierania paczek informacji (GamePackage).
+
+## Server
+
+Urządzenie sieciowe pełniące rolę serwera. Spodziewa się i akceptuje przychodzące zapytania o ustanowienie połączenia.
+
+## Client
+
+Urządzenie sieciowe pełniące rolę klienta. Dokonuje próbę połączenia przez podany adres IP.
+
+## Scene
+
+Interfejs stanowiący warstwę abstrakcji dla scen - czyli obiektów determinujących zawartość okna, logikę itp.
+
+## TransitionScene
+
+Scena przejścia, odgrywająca prostą animację fade-in-out która służy do uatrakcyjnienia procesu zmiany scen.
+
+## MenuScene
+
+Scena menu głównego.
+
+## StartGameScene
+
+Scena do nawiązywania połączenia sieciowego jako serwer.
+
+## JoinGameScene
+
+Scena do nawiązywania połączenia sieciowego jako klient.
+
+## GameScene 
+
+Scena zawierająca logikę właściwej rozgrywki. 
+(To raczej już do ciebie Michał)
+
+## GamePackage
+
+Klasa pełniąca rolę paczki do komunikacji pomiędzy dwoma urządzeniami sieciowymi celem wymiany informacji o grze. 
+(Tu też twoje)
