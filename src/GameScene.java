@@ -11,15 +11,15 @@ public class GameScene implements Scene {
 	private Stage stage;
 	private boolean done;
 	private Ship selectedShip;
-	private int shipsToSet = 1;
+	private int shipsToSet;
 	public static enum Stage { SHOOTING, SETTING }
 	private Button submit;
 	private ArrayList<Ship> ships;
 
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
-		this.shipsToSet = 1;
-		this.submit = new Button(g, Game.WIDTH / 2, 50, 200, 48, "start_shooting", "t1");
+		this.shipsToSet = 10;
+		this.submit = new Button(g, Game.WIDTH / 2, 50, 160, 80, "start_shooting", "t1");
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();
@@ -75,6 +75,14 @@ public class GameScene implements Scene {
 				selectedShip.move(mouse.getPos());
 				if (mouse.getMouseScroll() != 0) selectedShip.rotate();
 
+				if (mouse.isRightClicked())
+				{
+					selectedShip.revertToDefault();
+					selectedShip = null;
+					return;
+				}
+
+
 				Position chosenPos = player.getPosOnBoard(true, mouse, selectedShip);
 				if (chosenPos == null) return;
 				System.out.println(chosenPos.x);
@@ -91,6 +99,19 @@ public class GameScene implements Scene {
 			}
 			case SHOOTING:
 			{
+				if (player.hasWon())
+				{
+					
+					networkDevice.disconnect();
+					game.changeScene(new EndScene(game, true));
+					return;
+				}
+				if (player.hasLost())
+				{
+					networkDevice.disconnect();
+					game.changeScene(new EndScene(game, false));
+					return;
+				}
 				if (activeTurn)
 				{
 					// getting position for the shoot
@@ -114,7 +135,8 @@ public class GameScene implements Scene {
 			
 					// sending package to let the other player know that it is their turn
 					this.networkDevice.sendPackage(new GamePackage(true));
-					activeTurn = false;
+					if (receivedResponse == ShootingResponse.MISSED)
+						activeTurn = false;
 				}
 				else
 				{
@@ -134,7 +156,8 @@ public class GameScene implements Scene {
 
 					// waiting for the my turn package
 					networkDevice.receivePackage();
-					activeTurn = true;
+					if (response == ShootingResponse.MISSED)
+						activeTurn = true;
 				}
 				break;
 			}
@@ -174,7 +197,18 @@ public class GameScene implements Scene {
 		
 				if (shipsToSet <= 0)
 				{
-					submit.render(g);
+					if (submit.visible)
+					{
+						submit.render(g);
+					}
+					else
+					{
+						String text = "Wait untill your Opponent has set their fleet...";
+						int textWidth = fm.stringWidth(text);
+						int X = (Game.WIDTH / 2 - textWidth / 2);
+						int Y =	(50 - textHeight / 2) + fm.getAscent();
+						g.drawString(text, X, Y);
+					}
 				}
 
 				break;

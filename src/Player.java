@@ -19,6 +19,16 @@ public class Player
         return this.name;
     }
 
+    public boolean hasWon()
+    {
+        return homeBoard.shipsNumber > 0 && shootingBoard.shipsNumber <= 0;
+    }
+
+    public boolean hasLost()
+    {
+        return homeBoard.shipsNumber <= 0 && shootingBoard.shipsNumber > 0;
+    }
+
     // if board == true then on homeBoard
     // if board == false then on ShootingBoard
     public Position getPosOnBoard(boolean homeBd, Mouse mouse, Ship ship)
