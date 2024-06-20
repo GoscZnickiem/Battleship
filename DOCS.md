@@ -107,14 +107,20 @@ Zarządza również teksturami i np pomaga wyświetlić animację wybuchu
 Trywialna użytkowa klasa przechowująca parę liczb (x,y). Jest używana w większości metod pozostałych klas
 
 ## Używane globalnie Enumy:
+
 ### Orientation
 horizontal, vertical
+
 ### ShootingResponse
 killed, wounded, missed
+
 Przekazywana w paczkach sieciowych 
+
 ### GameScene.Stage
 shooting, setting
+
 Oznacza etap na którym jest w danym momencie gra
+
 
 ## GamePackage
 
