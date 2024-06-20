@@ -13,15 +13,18 @@ public class Mouse extends MouseAdapter {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		pressed = e.getButton() == 1;
+		pressed2 = e.getButton() == 2;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(e.getButton() != 1) {
-			return;
+		if(e.getButton() == 1) {
+			pressed = false;
+			dragged = false;
+		} else if(e.getButton() == 2) {
+			pressed2 = false;
+			dragged2 = false;
 		}
-		pressed = false;
-		dragged = false;
 	}
 
 	@Override
@@ -33,6 +36,9 @@ public class Mouse extends MouseAdapter {
 		y = e.getY();
 		if(pressed) {
 			dragged = true;
+		}
+		if(pressed2) {
+			dragged2 = true;
 		}
 	}
 
@@ -73,6 +79,18 @@ public class Mouse extends MouseAdapter {
 		return pressed && !pressedPrev;
 	}
 
+	public boolean isRightDragged() {
+		return dragged2;
+	}
+
+	public boolean isRightPressed() {
+		return pressed2;
+	}
+
+	public boolean isRightClicked() {
+		return pressed2 && !pressedPrev2;
+	}
+
 	public boolean isDragged() {
 		return dragged;
 	}
@@ -90,6 +108,7 @@ public class Mouse extends MouseAdapter {
 
 	public void update() {
 		pressedPrev = pressed;
+		pressedPrev2 = pressed2;
 	}
 
 	private int x;
@@ -97,5 +116,8 @@ public class Mouse extends MouseAdapter {
 	private boolean pressed = false;
 	private boolean pressedPrev = false;
 	private boolean dragged = false;
+	private boolean pressed2 = false;
+	private boolean pressedPrev2 = false;
+	private boolean dragged2 = false;
 	private int scrollValue = 0;
 }
