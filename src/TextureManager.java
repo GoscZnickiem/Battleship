@@ -30,6 +30,7 @@ public class TextureManager {
         } else {
             System.err.println("The folder path is invalid or does not contain any PNG files.");
         }
+        System.err.println("Done");
     }
 
 	public BufferedImage getTexture(String name) {
