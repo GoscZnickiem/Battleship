@@ -26,30 +26,15 @@ public class MenuScene implements Scene
 	@Override
 	public void render(Graphics2D g) {
 
-		{
-			String text = "BATTLESHIPS";
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("Arial", Font.BOLD, 50));
-			FontMetrics fm = g.getFontMetrics();
-			int textHeight = fm.getHeight();
-			int textWidth = fm.stringWidth(text);
-			int centerX = (Game.WIDTH - textWidth) / 2;
-			int centerY = (Game.HEIGHT - textHeight) / 5 + fm.getAscent();
-			g.drawString(text, centerX, centerY);
-		}
-		
-	
-		{
-			String text = "Main Menu";
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("Arial", Font.BOLD, 40));
-			FontMetrics fm = g.getFontMetrics();
-			int textHeight = fm.getHeight();
-			int textWidth = fm.stringWidth(text);
-			int centerX = (Game.WIDTH - textWidth) / 2;
-			int centerY = (Game.HEIGHT - textHeight) * 2 / 5 + fm.getAscent();
-			g.drawString(text, centerX, centerY);
-		}
+		String text = "Main Menu";
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.BOLD, 40));
+		FontMetrics fm = g.getFontMetrics();
+		int textHeight = fm.getHeight();
+		int textWidth = fm.stringWidth(text);
+		int centerX = (Game.WIDTH - textWidth) / 2;
+		int centerY = (Game.HEIGHT - textHeight) * 2 / 5 + fm.getAscent();
+		g.drawString(text, centerX, centerY);
 
 
 		quitButton.render(g);
