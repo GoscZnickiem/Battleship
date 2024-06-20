@@ -1,5 +1,9 @@
 # Battleship
-Projekt studentów Uniwersytetu Wrocławskiego
+Projekt studentów Uniwersytetu Wrocławskiego.
+
+Prosta gra w Okręty w Javie przy użyciu Swing/AWT. Gra przystosowana do gry dla 2 graczy przez sieć lokalną.
+
+Aplikacja używa wyłącznie własnoręcznie napisanego GUI a także własnego systemu sieciowego korzystającego z socketów.
 
 ## Budowanie projektu
 
@@ -14,3 +18,7 @@ Aby uruchomić zbudowany projekt użyj polecenia:
 Można też od razu zbudować i uruchomić projekt skryptem (Który również należy przeczytać przed uruchomieniem):
 
     ./run.sh
+
+## Dokumentacja
+
+[Dokumentacja](DOCS.md)
