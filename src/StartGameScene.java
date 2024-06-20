@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.net.*;
+import java.util.Random;
 
 public class StartGameScene implements Scene {
 	public StartGameScene(Game g) {
@@ -28,9 +29,9 @@ public class StartGameScene implements Scene {
 		}
 
 		if(netDevice.connected()) {
-			boolean myTurn = true;
+			boolean myTurn = new Random().nextBoolean();
 			netDevice.sendPackage(new GamePackage(!myTurn));
-			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Stefan", myTurn, netDevice)));
+			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Zbyszek", myTurn, netDevice)));
 		}
 
 	}

@@ -33,7 +33,7 @@ public class JoinGameScene implements Scene {
 
 		if(netDevice.connected()) {
 			GamePackage gp = netDevice.receivePackage();
-			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Mariusz", gp.done, netDevice)));
+			game.changeScene(new TransitionScene(game, this, new GameScene(game, "Marcin", gp.done, netDevice)));
 		}
 	}
 
