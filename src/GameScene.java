@@ -19,7 +19,7 @@ public class GameScene implements Scene {
 	public GameScene(Game g, String name, boolean activeTurn, NetworkDevice networkDevice) 
 	{
 		this.shipsToSet = 10;
-		this.submit = new Button(g, Game.WIDTH / 2, 50, 160, 80, "start_shooting", "t1");
+		this.submit = new Button(g, Game.WIDTH / 2, 60, 160, 80, "startshooting_button", "startshooting_buttonA");
 		this.stage = Stage.SETTING;
 		this.game = g;
 		this.mouse = g.getMouse();

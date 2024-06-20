@@ -21,7 +21,7 @@ public class EndScene implements Scene {
 	{
         this.game = g;
         this.text = texts[won ? 0 : 1];
-        this.menuButton = new Button(g, Game.WIDTH / 2, 500, 160, 80, "GoToMenu", "GoToMenuA");
+        this.menuButton = new Button(g, Game.WIDTH / 2, 500, 160, 80, "mainmenu_button", "mainmenu_buttonA");
 	}
 
 	@Override

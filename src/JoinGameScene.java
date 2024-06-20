@@ -7,9 +7,9 @@ public class JoinGameScene implements Scene {
 		game = g;
 		netDevice = new Client();
 
-		back = new Button(game, Game.WIDTH / 2, 650, 160, 80, "t1", "t2");
-		connect = new Button(game, Game.WIDTH / 2, 550, 160, 80, "t1", "t2");
-		setIP = new Button(game, Game.WIDTH / 2, 450, 160, 80, "t1", "t2");
+		back = new Button(game, Game.WIDTH / 2, 650, 160, 80, "goback_button", "goback_buttonA");
+		connect = new Button(game, Game.WIDTH / 2, 550, 160, 80, "connect_button", "connect_buttonA");
+		setIP = new Button(game, Game.WIDTH / 2, 450, 160, 80, "setip_button", "setip_buttonA");
 		ip = "IP: localhost";
 	}
 

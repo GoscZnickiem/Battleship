@@ -5,9 +5,9 @@ public class MenuScene implements Scene
 	public MenuScene(Game g) 
 	{
 		game = g;
-		quitButton = new Button(game, Game.WIDTH / 2, 650, 160, 80, "t1", "t2");
-		joinButton = new Button(game, Game.WIDTH / 2, 550, 160, 80, "t1", "t2");
-		startButton = new Button(game, Game.WIDTH / 2, 450, 160, 80, "t1", "t2");
+		quitButton = new Button(game, Game.WIDTH / 2, 650, 160, 80, "quitgame_button", "quitgame_buttonA");
+		joinButton = new Button(game, Game.WIDTH / 2, 550, 160, 80, "joingame_button", "joingame_buttonA");
+		startButton = new Button(game, Game.WIDTH / 2, 450, 160, 80, "hostgame_button", "hostgame_buttonA");
 	}
 
 	@Override
