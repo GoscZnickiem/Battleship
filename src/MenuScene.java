@@ -33,7 +33,7 @@ public class MenuScene implements Scene
 		int textHeight = fm.getHeight();
 		int textWidth = fm.stringWidth(text);
 		int centerX = (Game.WIDTH - textWidth) / 2;
-		int centerY = (Game.HEIGHT - textHeight) * 2 / 5 + fm.getAscent();
+		int centerY = (Game.HEIGHT - textHeight) / 2 - 50 + fm.getAscent();
 		g.drawString(text, centerX, centerY);
 
 
