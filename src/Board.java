@@ -98,7 +98,7 @@ public class Board {
             String text = "Left ships pieces:  " + shipsNumber;
             int textWidth = fm.stringWidth(text);
             int X = (position.x - Board.SPACE_SIZE / 2 + Board.SIZE * Board.SPACE_SIZE / 2 - textWidth / 2);
-            int Y = (position.y - Board.SPACE_SIZE / 2 + Board.SIZE * Board.SPACE_SIZE) + fm.getAscent();
+            int Y = (position.y - Board.SPACE_SIZE / 2 + Board.SIZE * Board.SPACE_SIZE + textHeight / 2) + fm.getAscent();
             g.drawString(text, X, Y);
         }
 

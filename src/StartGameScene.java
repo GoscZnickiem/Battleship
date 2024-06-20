@@ -6,8 +6,8 @@ public class StartGameScene implements Scene {
 		game = g;
 		netDevice = new Server();
 
-		back = new Button(game, Game.WIDTH / 2, 650, 160, 80, "goback_button", "goback_buttonA");
-		connect = new Button(game, Game.WIDTH / 2, 550, 160, 80, "connect_button", "connect_buttonA");
+		back = new Button(game, Game.WIDTH / 2, 600, 160, 80, "goback_button", "goback_buttonA");
+		connect = new Button(game, Game.WIDTH / 2, 500, 160, 80, "connect_button", "connect_buttonA");
 		ip = "IP: localhost";
 		try {
 			ip = "IP: " + InetAddress.getLocalHost().getHostAddress();

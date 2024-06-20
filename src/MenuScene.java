@@ -5,9 +5,9 @@ public class MenuScene implements Scene
 	public MenuScene(Game g) 
 	{
 		game = g;
-		quitButton = new Button(game, Game.WIDTH / 2, 650, 160, 80, "quitgame_button", "quitgame_buttonA");
-		joinButton = new Button(game, Game.WIDTH / 2, 550, 160, 80, "joingame_button", "joingame_buttonA");
-		startButton = new Button(game, Game.WIDTH / 2, 450, 160, 80, "hostgame_button", "hostgame_buttonA");
+		quitButton = new Button(game, Game.WIDTH / 2, 600, 160, 80, "quitgame_button", "quitgame_buttonA");
+		joinButton = new Button(game, Game.WIDTH / 2, 500, 160, 80, "joingame_button", "joingame_buttonA");
+		startButton = new Button(game, Game.WIDTH / 2, 400, 160, 80, "hostgame_button", "hostgame_buttonA");
 	}
 
 	@Override
@@ -23,15 +23,32 @@ public class MenuScene implements Scene
 
 	@Override
 	public void render(Graphics2D g) {
-		String text = "Main Menu";
-		g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        FontMetrics fm = g.getFontMetrics();
-        int textWidth = fm.stringWidth(text);
-        int textHeight = fm.getHeight();
-        int centerX = (Game.WIDTH - textWidth) / 2;
-        int centerY = (Game.HEIGHT - textHeight) / 3 + fm.getAscent();
-        g.drawString(text, centerX, centerY);
+
+		{
+			String text = "BATTLESHIPS";
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial", Font.BOLD, 50));
+			FontMetrics fm = g.getFontMetrics();
+			int textHeight = fm.getHeight();
+			int textWidth = fm.stringWidth(text);
+			int centerX = (Game.WIDTH - textWidth) / 2;
+			int centerY = (Game.HEIGHT - textHeight) / 5 + fm.getAscent();
+			g.drawString(text, centerX, centerY);
+		}
+		
+	
+		{
+			String text = "Main Menu";
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial", Font.BOLD, 40));
+			FontMetrics fm = g.getFontMetrics();
+			int textHeight = fm.getHeight();
+			int textWidth = fm.stringWidth(text);
+			int centerX = (Game.WIDTH - textWidth) / 2;
+			int centerY = (Game.HEIGHT - textHeight) * 2 / 5 + fm.getAscent();
+			g.drawString(text, centerX, centerY);
+		}
+
 
 		quitButton.render(g);
 		startButton.render(g);
