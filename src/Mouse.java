@@ -13,7 +13,7 @@ public class Mouse extends MouseAdapter {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		pressed = e.getButton() == 1;
-		pressed2 = e.getButton() == 2;
+		pressed2 = e.getButton() == 3;
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class Mouse extends MouseAdapter {
 		if(e.getButton() == 1) {
 			pressed = false;
 			dragged = false;
-		} else if(e.getButton() == 2) {
+		} else if(e.getButton() == 3) {
 			pressed2 = false;
 			dragged2 = false;
 		}
