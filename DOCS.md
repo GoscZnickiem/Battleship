@@ -76,9 +76,47 @@ Scena do nawiązywania połączenia sieciowego jako klient.
 ## GameScene 
 
 Scena zawierająca logikę właściwej rozgrywki. 
-(To raczej już do ciebie Michał)
+Metoda update zajmuje się obsługą wszystkich funkcjonalności gry, a metoda render wyświetla wynikowy stan obiektów które zostały zmodyfikowane jako wynik działań graczy
+
+## EndScene
+
+Scena ekranu końcowego. Pozwala przejść do menu głownego. Wyświetla odpowiedni tekst w zależności od wyniku gry
+
+## Player
+Służy jako warstwa abstrakcji pomiędzy elementami takimi jak Plansze a grą, pośredniczy w większości funkcji które wywołuje GameScene
+
+## Board
+Reprezentuje planszę jako 100 obiektów klasy Space, a także zajmuje się wyświetlaniem planszy z odpowiednimi podpisami (w zależności od fazy gry)
+
+## HomeBoard 
+Zajmuje się metodami związanymi z ustawianiem statków na planszy np sprawdza czy pozycja jest poprawna
+
+## ShootingBoard
+Reprezentuje drugą planszę do strzelania. Jedyna różnica polega na innej implementacji metody sprawdzającej poprawność pozycji
+
+## Space
+Klasa reprezentująca pojedyncze pole na planszy. Zajmuje się zarządzaniem jego stanu i tym samym tekstur które mają zostać wyświetlone w zależności od tego czy pole było strzelone, stoi na nim statek itp. Przechowuje w sobie obiekt klasy Button. Jednocześnie przechowuje referencje do statku jeśli taki znajduje się na polu
+
+## Ship
+Klasa zajmująca się zarządzaniem statkiem oraz ich całą listą (ustawia wszystkie statki na ekranie)
+Pozwala obracać czy zmieniać położenie statku. Jednocześnie zawiera zbiory pól zajmowanych przez statek i tych które tworzą jego otoczkę. 
+Zarządza również teksturami i np pomaga wyświetlić animację wybuchu
+
+## Position
+
+Trywialna użytkowa klasa przechowująca parę liczb (x,y). Jest używana w większości metod pozostałych klas
+
+## Używane globalnie Enumy:
+### Orientation
+horizontal, vertical
+### ShootingResponse
+killed, wounded, missed
+Przekazywana w paczkach sieciowych 
+### GameScene.Stage
+shooting, setting
+Oznacza etap na którym jest w danym momencie gra
 
 ## GamePackage
 
 Klasa pełniąca rolę paczki do komunikacji pomiędzy dwoma urządzeniami sieciowymi celem wymiany informacji o grze. 
-(Tu też twoje)
+Przechowuje niezbędne elementy stanu całej gry takie jak informacja o wybranej pozycji, pola należące do zastrzelonego statku, odpowiedź na strzał gracza itp
