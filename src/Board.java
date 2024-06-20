@@ -10,7 +10,7 @@ public class Board {
     public static final int SPACE_SIZE = 48; // size of single square on a board
     public static final int BOARD_SIZE = Board.SIZE * Board.SPACE_SIZE; // size of a whole board
     public Position position;
-    private int shipsNumber;
+    public int shipsNumber;
 
     public String name;
 
