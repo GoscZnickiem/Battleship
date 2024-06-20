@@ -38,7 +38,7 @@ public class EndScene implements Scene {
 		
         this.menuButton.render(g);
         
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 25));
         FontMetrics fm = g.getFontMetrics();
         int textHeight = fm.getHeight();

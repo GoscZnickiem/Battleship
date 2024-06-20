@@ -41,10 +41,8 @@ public class GameScene implements Scene {
 				if (done)
 				{
 					networkDevice.sendPackage(new GamePackage(true));
-					System.out.println("Package sent");
 					if (networkDevice.receivePackage().done)
 					stage = Stage.SHOOTING;
-					System.out.println("Changing scene");
 					return;
 				}
 
@@ -85,10 +83,6 @@ public class GameScene implements Scene {
 
 				Position chosenPos = player.getPosOnBoard(true, mouse, selectedShip);
 				if (chosenPos == null) return;
-				System.out.println(chosenPos.x);
-				System.out.println(chosenPos.y);
-
-				System.out.println(player.correctShipPos(chosenPos, selectedShip));
 				if (!player.correctShipPos(chosenPos, selectedShip)) return;
 
 				player.putShip(chosenPos, selectedShip);
@@ -168,7 +162,7 @@ public class GameScene implements Scene {
 	public void render(Graphics2D g) {
 		player.render(g, stage);
 
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 25));
 		FontMetrics fm = g.getFontMetrics();
 		int textHeight = fm.getHeight();

@@ -27,6 +27,10 @@ public class Client extends NetworkDevice
 		return port;
 	}
 
+	public void cancel() {
+		connecting = false;
+	}
+
 	@Override
 	public void connect()
 	{
@@ -40,15 +44,10 @@ public class Client extends NetworkDevice
 					socket = new Socket(ip, port);
 					connected = true;
 					connecting = false;
-					System.out.println("Connected to server.");
 				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println("retry connection");
 					try {
 						Thread.sleep(1000); 
-					} catch (InterruptedException e2) {
-					e2.printStackTrace();
-					}
+					} catch (InterruptedException e2) { }
 				}
 			}
 		});
@@ -61,16 +60,12 @@ public class Client extends NetworkDevice
         if (connectThread != null) {
             connectThread.interrupt();
         }
-		System.out.println("disconnecting...");
 		try {
 			if (socket != null && !socket.isClosed()) {
 				socket.close();
 			}
 			connected = false;
-			System.out.println("Connection closed.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { }
 	}
 
 	private String ip;

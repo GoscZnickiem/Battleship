@@ -104,12 +104,6 @@ public class Player
 
     public ShootingResponse getShootingResponse(Position pos)
     {
-        System.out.println(pos.x);
-        System.out.println(pos.y);
-        System.out.println(homeBoard.hasShip(pos));
-        System.out.println(this.homeBoard.killedShip(pos));
-
-
         if (this.homeBoard.hasShip(pos))
         {
             if (this.homeBoard.killedShip(pos))

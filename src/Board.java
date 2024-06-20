@@ -63,21 +63,14 @@ public class Board {
     
     public void markKilledShip(ArrayList<Position> shipSpaces, ArrayList<Position> borderSpaces)
     {
-        System.out.println("----");
         for (Position pos : shipSpaces) 
         {
-            System.out.println(pos.x);
-            System.out.println(pos.y);
             this.spaces[pos.x][pos.y].setHit(Space.HitValue.HIT);
         }
-        System.out.println("----");
         for (Position pos : borderSpaces)
         {
-            System.out.println(pos.x);
-            System.out.println(pos.y);
             this.spaces[pos.x][pos.y].setHit(Space.HitValue.MISS);
         }
-        System.out.println("----");
     }
 
 	public void render(Graphics2D g, GameScene.Stage stage) {
@@ -88,7 +81,7 @@ public class Board {
 			}
 		}
     
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         FontMetrics fm = g.getFontMetrics();
         int textHeight = fm.getHeight();

@@ -28,13 +28,8 @@ public class Server extends NetworkDevice
 					socket = serverSocket.accept();
 					connected = true;
 					connecting = false;
-					System.out.println("Client connected.");
-				} else {
-					System.out.println("Server is already connected.");
-				}         
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				}        
+			} catch (IOException e) { }
 		});
 		connectThread.start();
 	}
@@ -52,10 +47,7 @@ public class Server extends NetworkDevice
 				serverSocket.close();
 			}
 			connected = false;
-			System.out.println("Connection closed.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { }
 	}
 
 	private ServerSocket serverSocket;

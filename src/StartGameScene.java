@@ -38,7 +38,7 @@ public class StartGameScene implements Scene {
 	@Override
 	public void render(Graphics2D g) {
 
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 30));
         FontMetrics fm = g.getFontMetrics();
 

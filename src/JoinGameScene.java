@@ -23,10 +23,11 @@ public class JoinGameScene implements Scene {
 		} else if(connect.isClicked()) {
 			netDevice.connect();
 		} else if(setIP.isClicked()) {
+			netDevice.cancel();
 			String newip = JOptionPane.showInputDialog(game, "Input IP:");
 			if (newip != null && !newip.trim().isEmpty()) {
-				ip = "IP: " + newip;
-				netDevice.setIP(ip);
+				ip = "IP: " + newip.trim();
+				netDevice.setIP(newip.trim());
 			}
 		}
 
@@ -39,7 +40,7 @@ public class JoinGameScene implements Scene {
 	@Override
 	public void render(Graphics2D g) {
 
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 30));
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(ip);

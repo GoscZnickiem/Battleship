@@ -22,7 +22,6 @@ public class Game extends JPanel {
 		currentScene = new MenuScene(this);
 		this.frame = frame;
 
-		System.out.println("aaa");
 		background = texMan.getTexture("bg");
 
 		loop = new Timer();
